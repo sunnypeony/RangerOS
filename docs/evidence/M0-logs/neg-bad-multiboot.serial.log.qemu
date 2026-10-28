@@ -1,0 +1,2 @@
+# qemu-system-i386 -accel tcg -m 128M -smp 1 -nic none -no-reboot -display none -monitor none -serial file:build/test-logs/neg-bad-multiboot.serial.log -boot d -cdrom build/neg/bad-multiboot.iso
+qemu-system-i386: terminating on signal 15 from pid 9689 (python3)

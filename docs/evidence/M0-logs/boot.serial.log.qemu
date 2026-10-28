@@ -1,0 +1,2 @@
+# qemu-system-i386 -accel tcg -m 128M -smp 1 -nic none -no-reboot -display none -monitor none -serial file:build/test-logs/boot.serial.log -boot d -cdrom build/rangeros.iso
+qemu-system-i386: terminating on signal 15 from pid 9678 (python3)
