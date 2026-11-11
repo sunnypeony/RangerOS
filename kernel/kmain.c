@@ -12,9 +12,9 @@
 #include "rangeros/panic.h"
 #include "rangeros/pic.h"
 #include "rangeros/pit.h"
-#include "rangeros/serial.h"
-#include "rangeros/vga.h"
+#include "rangeros/shell.h"
 #include "rangeros/version.h"
+#include "rangeros/wait.h"
 #ifdef RANGEROS_SELFTEST
 #include "rangeros/selftest.h"
 #define SELFTEST(stage) selftest_run(stage)
@@ -26,51 +26,6 @@
 #define TICK_REPORT_INTERVAL 100
 
 void kernel_main(uint32_t magic, uint32_t multiboot_info);
-
-/*
- * Sleep until the next interrupt unless input is already queued.
- * cli, check, then "sti; hlt": sti only takes effect after the next
- * instruction, so an IRQ arriving after the check still wakes the hlt
- * instead of being missed. IRQ0 is always enabled, so hlt cannot sleep
- * forever (SPEC S04).
- */
-static void wait_for_interrupt(void)
-{
-    __asm__ volatile("cli" : : : "memory");
-    if (keyboard_pending())
-        __asm__ volatile("sti" : : : "memory");
-    else
-        __asm__ volatile("sti\n\thlt" : : : "memory");
-}
-
-/* Main-loop side of input: echo on VGA, one log line per byte on COM1.
- * No line buffer and no command parsing in M2. */
-static void handle_input(uint8_t c)
-{
-    struct keyboard_stats ks;
-
-    switch (c) {
-    case '\n':
-        vga_putc('\n');
-        kprintf_serial("KEY 0x0a ENTER\n");
-        keyboard_stats_snapshot(&ks);
-        kprintf_serial("KBD chars=%u scancodes=%u dropped=%u ignored=%u\n",
-                       ks.chars, ks.scancodes, ks.dropped, ks.ignored);
-        break;
-    case '\b':
-        vga_putc('\b');
-        kprintf_serial("KEY 0x08 BACKSPACE\n");
-        break;
-    case ' ':
-        vga_putc(' ');
-        kprintf_serial("KEY 0x20 SPACE\n");
-        break;
-    default:
-        vga_putc((char)c);
-        kprintf_serial("KEY 0x%02x '%c'\n", c, c);
-        break;
-    }
-}
 
 static void report_ticks(uint32_t now)
 {
@@ -86,6 +41,8 @@ static void report_ticks(uint32_t now)
                    ks.dropped);
 }
 
+/* The only consumer of the PS/2 input queue. IRQ1 only enqueues bytes;
+ * all line editing and command execution happen here, with IF=1. */
 static __attribute__((noreturn)) void main_loop(void)
 {
     uint32_t next_report = TICK_REPORT_INTERVAL;
@@ -94,14 +51,14 @@ static __attribute__((noreturn)) void main_loop(void)
         int c;
 
         while ((c = keyboard_read()) >= 0)
-            handle_input((uint8_t)c);
+            shell_input((uint8_t)c);
 
         uint32_t now = timer_ticks();
         if (tick_reached(now, next_report)) {
             report_ticks(now);
             next_report += TICK_REPORT_INTERVAL;
         }
-        wait_for_interrupt();
+        wait_for_input();
     }
 }
 
@@ -150,5 +107,6 @@ void kernel_main(uint32_t magic, uint32_t multiboot_info)
     kprintf("BOOT_OK\n");
 
     SELFTEST(SELFTEST_STAGE_IRQ_ON);
+    shell_init();
     main_loop();
 }

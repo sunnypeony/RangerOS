@@ -1,0 +1,29 @@
+# Every shell command through PS/2 injection, then input keeps working.
+# Keys typed while demo runs are queued by IRQ1 and handled afterwards.
+delay 0.08
+hold 30
+type help
+key ret
+expect ^SHELL len=4 rejected=0 \[help\]$
+expect ^demo +show 
+type version
+key ret
+expect ^MVP:
+type ticks
+key ret
+expect ^ticks=[0-9]+ hz=100 uptime=
+type demo
+key ret
+expect ^demo: 5 steps of 20 ticks$
+type ticks
+key ret
+expect ^demo done after [0-9]+ ticks$
+expect ^SHELL len=5 rejected=0 \[ticks\]$
+expect ^ticks=
+type clear
+key ret
+expect ^CLEAR vga$
+type version
+key ret
+expect ^SHELL len=7 rejected=0 \[version\]$
+expect ^MVP:

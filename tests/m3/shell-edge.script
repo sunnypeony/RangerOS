@@ -1,0 +1,50 @@
+# Line-editing edge cases through PS/2 injection.
+delay 0.05
+hold 20
+# empty line
+key ret
+expect ^SHELL len=0 rejected=0 \[\]$
+# unknown command
+type foo
+key ret
+expect ^unknown command: foo \(type help\)$
+# backspace at column 0 (no-op), then a normal command
+key backspace
+key backspace
+type version
+key ret
+expect ^SHELL len=7 rejected=0 \[version\]$
+expect ^MVP:
+# normal backspace inside a word
+type ticx
+key backspace
+type ks
+key ret
+expect ^SHELL len=5 rejected=0 \[ticks\]$
+expect ^ticks=
+# exactly 127 characters: accepted, trailing spaces trimmed, runs ticks
+type ticks
+repeat 122 key spc
+key ret
+expect ^SHELL len=127 rejected=0 \[ticks {122}\]$
+expect ^ticks=
+# 128 characters: the 128th is rejected and the line is discarded
+type ticks
+repeat 123 key spc
+key ret
+expect ^SHELL len=127 rejected=1 \[ticks {122}\]$
+expect ^shell: line too long \(max 127 chars\), 1 rejected; discarded$
+# far over the limit
+repeat 150 type x
+key ret
+expect ^SHELL len=127 rejected=23 \[x{127}\]$
+expect ^shell: line too long \(max 127 chars\), 23 rejected; discarded$
+# next normal command after the overflow
+type version
+key ret
+expect ^SHELL len=7 rejected=0 \[version\]$
+expect ^MVP:
+# arguments are rejected
+type help me
+key ret
+expect ^shell: help takes no arguments$

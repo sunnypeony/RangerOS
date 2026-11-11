@@ -2,6 +2,7 @@
 """Judge a VGA text-buffer dump (pmemsave of 0xB8000, 80x25 cells).
 
   --expect REGEX   a screen row must match; repeat, matched in row order
+  --row N=REGEX    screen row N (0-24, right-stripped) must match REGEX
   --scroll-test    the whole screen must equal the output of
                    tests/kernel/selftest_vga.c, recomputed here
   --text-out FILE  write the decoded screen as plain text (evidence)
@@ -97,6 +98,8 @@ def main():
     ap.add_argument("--dump", required=True)
     ap.add_argument("--expect", action="append", default=[])
     ap.add_argument("--scroll-test", action="store_true")
+    ap.add_argument("--row", action="append", default=[],
+                    help="N=REGEX: screen row N (0-24, right-stripped) must match")
     ap.add_argument("--text-out")
     ap.add_argument("--ppm")
     ap.add_argument("--png-out")
@@ -131,6 +134,12 @@ def main():
         check("expected-rows", want == len(expects), "%d/%d matched in order%s" % (
             want, len(expects),
             "" if want == len(expects) else ", missing %r" % expects[want].pattern))
+
+    for spec in args.row:
+        idx, _, rx = spec.partition("=")
+        i = int(idx)
+        check("row[%d]" % i, 0 <= i < ROWS and re.search(rx, stripped[i]) is not None,
+              "%r vs %r" % (rx, stripped[i] if 0 <= i < ROWS else "-"))
 
     if args.scroll_test:
         expect_rows = simulate(selftest_vga_text())

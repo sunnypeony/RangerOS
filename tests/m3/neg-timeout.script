@@ -1,0 +1,7 @@
+# Negative self-test: a command the shell does not know cannot produce the
+# version output, so the runner must time out (rc=1), not pass.
+delay 0.05
+hold 20
+type versio
+key ret
+expect ^MVP:

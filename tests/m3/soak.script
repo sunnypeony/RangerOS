@@ -1,0 +1,38 @@
+# At least 2 minutes with IRQs on and commands spread over the run.
+delay 0.06
+hold 20
+type help
+key ret
+expect ^demo +show 
+sleep 20
+type ticks
+key ret
+expect ^ticks=
+type demo
+key ret
+expect ^demo done after
+sleep 20
+type version
+key ret
+expect ^MVP:
+sleep 20
+type foo
+key ret
+expect ^unknown command: foo
+sleep 20
+type ticks
+key ret
+expect ^ticks=
+sleep 20
+type clear
+key ret
+expect ^CLEAR vga$
+sleep 15
+expect ^TICKS 12000
+type ticks
+key ret
+expect ^SHELL len=5 rejected=0 \[ticks\]$
+expect ^ticks=
+type version
+key ret
+expect ^MVP:

@@ -1,0 +1,22 @@
+# Kernel queue-full test (selftest-qfull.iso). The shell has not started:
+# the main loop is held while IRQ1 keeps filling the 128-byte queue.
+# 140 digit keys -> 128 queued, 12 dropped (the newest ones).
+delay 0.04
+hold 10
+repeat 14 type 0123456789
+expect ^QFULL_PAUSE done queued=128 chars=128 dropped=12 scancodes=280$
+# The shell then drains the queue through the normal path: 128 bytes into
+# a 127-character line, so one is rejected; Enter discards the line.
+expect ^RangerOS shell: type help$
+sleep 2
+key ret
+expect ^SHELL len=127 rejected=1 \[(0123456789){12}0123456\]$
+expect ^shell: line too long \(max 127 chars\), 1 rejected; discarded$
+# Recovered: normal commands work, nothing more is dropped.
+type ticks
+key ret
+expect ^SHELL len=5 rejected=0 \[ticks\]$
+expect ^ticks=
+type version
+key ret
+expect ^MVP:

@@ -131,6 +131,15 @@ int keyboard_pending(void)
     return pending;
 }
 
+uint32_t keyboard_queued(void)
+{
+    irqflags_t flags = irq_save();
+    uint32_t n = input_queue_count(&queue);
+
+    irq_restore(flags);
+    return n;
+}
+
 void keyboard_stats_snapshot(struct keyboard_stats *out)
 {
     irqflags_t flags = irq_save();
