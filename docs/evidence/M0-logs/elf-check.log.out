@@ -1,0 +1,17 @@
+PASS elf-class: ELF32
+PASS elf-data: 2's complement, little endian
+PASS elf-type: EXEC (Executable file)
+PASS elf-machine: Intel 80386
+PASS no-interp: no PT_INTERP program header
+PASS no-dynamic: no PT_DYNAMIC program header
+PASS load-segments: 2 LOAD, lowest paddr 0x100000
+PASS no-dynamic-sections: found: none
+PASS debug-info: .debug_info present
+PASS no-undefined-symbols: nm -u: empty
+PASS no-host-startup-symbols: found: none
+PASS entry-is-_start: entry 0x100010, _start 0x100010
+PASS boot-stack-aligned: boot_stack_top 0x106000
+PASS bss-bounds: __bss_start 0x102000, __bss_end 0x106000
+PASS multiboot-header: offset 0x1000, flags 0x3, inside LOAD segment: True
+PASS grub-file-multiboot: grub-file --is-x86-multiboot rc=0
+ELF_CHECK PASS (0 failed)

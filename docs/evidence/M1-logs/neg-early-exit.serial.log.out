@@ -1,0 +1,1 @@
+RESULT=EARLY_EXIT code=2 elapsed=1.9s qemu_rc=0 log=build/test-logs/neg-early-exit.serial.log detail=QEMU exited after 0/2 markers

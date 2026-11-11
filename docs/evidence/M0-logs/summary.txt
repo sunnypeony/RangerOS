@@ -1,0 +1,14 @@
+== M0 tests 2026-10-28T14:06:13-07:00
+PASS elf-check              expected_rc=0 got_rc=0 log=build/test-logs/elf-check.log
+       ELF_CHECK PASS (0 failed)
+PASS neg-elf-bad-multiboot  expected_rc=1 got_rc=1 log=build/test-logs/neg-elf-bad-multiboot.log
+       ELF_CHECK FAIL (2 failed)
+PASS boot                   expected_rc=0 got_rc=0 log=build/test-logs/boot.serial.log
+       RESULT=PASS code=0 elapsed=1.5s qemu_rc=running(killed) log=build/test-logs/boot.serial.log detail=2 markers, alive after 1.0s grace
+PASS neg-boot-bad-multiboot expected_rc=3 got_rc=3 log=build/test-logs/neg-bad-multiboot.serial.log
+       RESULT=FAIL_MARKER code=3 elapsed=0.4s qemu_rc=running(killed) log=build/test-logs/neg-bad-multiboot.serial.log detail='error: no multiboot header found.'
+PASS neg-missing-marker     expected_rc=1 got_rc=1 log=build/test-logs/neg-missing-marker.serial.log
+       RESULT=TIMEOUT code=1 elapsed=10.1s qemu_rc=running(killed) log=build/test-logs/neg-missing-marker.serial.log detail=1/2 markers within 10s, waiting for '^BOOT_NEVER$'
+PASS neg-early-exit         expected_rc=2 got_rc=2 log=build/test-logs/neg-early-exit.serial.log
+       RESULT=EARLY_EXIT code=2 elapsed=0.5s qemu_rc=0 log=build/test-logs/neg-early-exit.serial.log detail=QEMU exited after 0/2 markers
+M0_TEST PASS

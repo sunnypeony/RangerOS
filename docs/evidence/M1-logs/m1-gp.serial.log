@@ -1,0 +1,12 @@
+[H[J[1;1HRangerOS 0.0.2-m1 (i386, multiboot1)
+GDT_OK cs=0x0008 ds=0x0010 ss=0x0010
+IDT_OK vectors=256
+SELFTEST gp: loading ds=0x0028
+EXCEPTION vector=13 name=#GP error=0x00000028 eip=0x00101c46 cs=0x0008
+  eflags=0x00000002
+  eax=0x00000028 ebx=0x00010000 ecx=0x00000140 edx=0x000003d5
+  esi=0x2badb002 edi=0x0010783c ebp=0x00106fdc esp=0x00106fdc
+  ds=0x0010 es=0x0010 fs=0x0010 gs=0x0010
+  frame=0x00106f98 pusha_esp=0x00106fc8
+PANIC unhandled exception 13
+HALT

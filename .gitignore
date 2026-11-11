@@ -1,0 +1,6 @@
+build/
+# Large binaries kept on disk but not versioned (reproduce via README).
+tools/grub/*.deb
+tools/grub/extracted/
+env-check/*.iso
+env-check/*.o

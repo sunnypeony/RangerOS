@@ -1,0 +1,1 @@
+# qemu-system-i386 -accel tcg -m 128M -smp 1 -nic none -no-reboot -display none -monitor none -serial file:build/test-logs/neg-early-exit.serial.log -boot d -cdrom build/neg/early-exit.iso

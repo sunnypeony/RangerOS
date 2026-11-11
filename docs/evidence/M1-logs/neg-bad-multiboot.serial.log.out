@@ -1,0 +1,1 @@
+RESULT=FAIL_MARKER code=3 elapsed=0.4s qemu_rc=running(killed) log=build/test-logs/neg-bad-multiboot.serial.log detail='error: no multiboot header found.'

@@ -1,0 +1,58 @@
+     VMA      LMA     Size Align Out     In      Symbol
+       0        0   100000     1 . = 1M
+  100000        0        0     1 __kernel_start = .
+  100000   100000      28f    16 .text
+  100000   100000        c     4         build/arch/i386/boot.o:(.multiboot)
+  100010   100010       2c    16         build/arch/i386/boot.o:(.text)
+  100010   100010        0     1                 _start
+  100038   100038        0     1                 _start.hang
+  100040   100040       4d    16         build/kernel/kmain.o:(.text)
+  100040   100040       4d     1                 kernel_main
+  100090   100090      1ff    16         build/drivers/serial.o:(.text)
+  100090   100090       36     1                 serial_init
+  1000d0   1000d0       2e     1                 serial_putc
+  100100   100100       55     1                 serial_write
+  100160   100160      12f     1                 serial_write_hex32
+  101000   101000       61     1 .rodata
+  101000   101000       61     1         <internal>:(.rodata)
+  102000   102000     4000    16 .bss
+  102000   102000        0     1         __bss_start = .
+  102000   102000     4000    16         build/arch/i386/boot.o:(.bss)
+  102000   102000        1     1                 boot_stack_bottom
+  106000   106000        0     1                 boot_stack_top
+  106000   106000        0     1         . = ALIGN ( 4 )
+  106000   106000        0     1         __bss_end = .
+  106000   106000        0     1 __kernel_end = .
+       0        0       20     1 .debug_aranges
+       0        0       20     1         build/arch/i386/boot.o:(.debug_aranges)
+       0        0       12     1 .debug_pubnames
+       0        0       12     1         build/arch/i386/boot.o:(.debug_pubnames)
+       0        0      584     1 .debug_info
+       0        0       44     1         build/arch/i386/boot.o:(.debug_info)
+      44       44       c6     1         build/kernel/kmain.o:(.debug_info)
+     10a      10a      47a     1         build/drivers/serial.o:(.debug_info)
+       0        0      1f2     1 .debug_abbrev
+       0        0       1b     1         build/arch/i386/boot.o:(.debug_abbrev)
+      1b       1b       95     1         build/kernel/kmain.o:(.debug_abbrev)
+      b0       b0      142     1         build/drivers/serial.o:(.debug_abbrev)
+       0        0      397     1 .debug_line
+       0        0       53     1         build/arch/i386/boot.o:(.debug_line)
+      53       53       b0     1         build/kernel/kmain.o:(.debug_line)
+     103      103      294     1         build/drivers/serial.o:(.debug_line)
+       0        0       c8     8 .debug_frame
+       0        0        4     8         build/arch/i386/boot.o:(.debug_frame)
+       4        4       34     4         build/kernel/kmain.o:(.debug_frame)
+      38       38       90     4         build/drivers/serial.o:(.debug_frame)
+       0        0      4cf     1 .debug_loc
+       0        0       10     1         build/arch/i386/boot.o:(.debug_loc)
+      10       10      4bf     1         build/drivers/serial.o:(.debug_loc)
+       0        0      13c     1 .debug_str
+       0        0      13c     1         <internal>:(.debug_str)
+       0        0      108     1 .debug_ranges
+       0        0      108     1         build/drivers/serial.o:(.debug_ranges)
+       0        0      180     4 .symtab
+       0        0      180     4         <internal>:(.symtab)
+       0        0       a4     1 .shstrtab
+       0        0       a4     1         <internal>:(.shstrtab)
+       0        0      131     1 .strtab
+       0        0      131     1         <internal>:(.strtab)

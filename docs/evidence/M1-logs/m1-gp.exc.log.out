@@ -1,0 +1,17 @@
+PASS one-exception-line: 1 EXCEPTION lines
+PASS eflags-line: line after EXCEPTION is eflags=...
+PASS vector: got 13, want 13
+PASS name: got #GP, want #GP
+PASS error-code: got 0x28, want 0x28
+PASS eip-is-fault-site: eip 0x00101c46, selftest_fault_site 0x00101c46
+PASS cs-selector: cs=0x0008
+PASS if-clear: eflags=0x00000002
+PASS frame-pusha-esp: frame 0x00106f98, pusha_esp 0x00106fc8 (want frame+0x30)
+PASS frame-interrupted-esp: esp 0x00106fdc (want frame+0x44 = 0x00106fdc)
+PASS frame-aligned: frame 0x00106f98
+PASS ds-selector: ds=0x0010
+PASS cr2-only-for-pf: cr2 line present: False
+PASS panic-line: PANIC unhandled exception 13
+PASS halt-after-panic: HALT follows PANIC
+PASS no-continuation: found: none
+EXC_CHECK PASS (0 failed)
