@@ -1,7 +1,8 @@
-; Exception entry stubs and the common trap path.
+; Exception/IRQ entry stubs and the common trap path.
 ;
-; M1: hardware IRQs stay disabled (IF=0, PIC untouched), so only CPU
-; exceptions (or a stray INT n) arrive here, and every one is fatal.
+; CPU exceptions (0-31) and unknown vectors are fatal: isr_dispatch
+; panics. Hardware IRQs (0x20-0x2F after PIC remap) return through the
+; same frame (docs/interrupts.md).
 ;
 ; Every vector gets a stub that leaves the same frame shape:
 ;   - the CPU pushes EFLAGS, CS, EIP (same privilege level: no SS:ESP);
@@ -81,8 +82,11 @@ isr_common:
     call isr_dispatch
     mov esp, ebx
 
-    ; Return path (unused in M1: isr_dispatch panics). Kept so M2 IRQs
-    ; can reuse the same frame.
+    ; Return path, taken by hardware IRQs (isr_dispatch returns; CPU
+    ; exceptions never get here). Restores the interrupted segment and
+    ; general registers from the frame; iretd then restores EIP, CS and
+    ; EFLAGS (including IF and DF), which also puts ESP back exactly at
+    ; frame + 68, the interrupted code's stack pointer.
     pop eax
     mov gs, ax
     pop eax
@@ -92,6 +96,17 @@ isr_common:
     pop eax
     mov ds, ax
     popad
+%ifdef RANGEROS_IRQ_RETURN_SABOTAGE
+    ; Test-only (never defined for build/kernel.elf): corrupt ESI on the
+    ; way out once the IRQ-return selftest arms it, to prove the probe in
+    ; tests/kernel/irqret_probe.asm detects a broken return path. cmp
+    ; changes flags, but iretd reloads EFLAGS from the frame.
+extern irqret_sabotage_armed
+    cmp dword [irqret_sabotage_armed], 0
+    je .no_sabotage
+    mov esi, 0xBAD0BAD0
+.no_sabotage:
+%endif
     add esp, 8                        ; drop vector and error code
     iretd
 

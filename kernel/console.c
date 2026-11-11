@@ -38,3 +38,20 @@ int kprintf(const char *fmt, ...)
     va_end(ap);
     return n;
 }
+
+static void serial_sink(char c, void *ctx)
+{
+    (void)ctx;
+    serial_putc(c);
+}
+
+int kprintf_serial(const char *fmt, ...)
+{
+    va_list ap;
+    int n;
+
+    va_start(ap, fmt);
+    n = format_vprint(serial_sink, 0, fmt, ap);
+    va_end(ap);
+    return n;
+}
