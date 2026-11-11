@@ -42,12 +42,3 @@ void serial_write(const char *s)
     while (*s)
         serial_putc(*s++);
 }
-
-void serial_write_hex32(uint32_t value)
-{
-    static const char digits[] = "0123456789abcdef";
-
-    serial_write("0x");
-    for (int shift = 28; shift >= 0; shift -= 4)
-        serial_putc(digits[(value >> shift) & 0xF]);
-}

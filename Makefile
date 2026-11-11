@@ -6,6 +6,7 @@ CC            := clang
 LD            := ld.lld
 NASM          := nasm
 PYTHON        := python3
+HOST_CC       := gcc
 GRUB_MKRESCUE := grub-mkrescue
 QEMU          := qemu-system-i386
 GRUB_MODDIR   ?= tools/grub/extracted/usr/lib/grub/i386-pc
@@ -30,10 +31,14 @@ CFLAGS := --target=i686-none-elf -std=c11 -O2 -g \
 ASFLAGS := -f elf32 -g -F dwarf -w+all
 LDFLAGS := -m elf_i386 -nostdlib -static --build-id=none -z max-page-size=0x1000
 
-C_SRCS   := kernel/kmain.c drivers/serial.c
-ASM_SRCS := arch/i386/boot.asm
+C_SRCS   := kernel/kmain.c kernel/console.c kernel/panic.c \
+            arch/i386/gdt.c arch/i386/idt.c arch/i386/trap.c \
+            drivers/serial.c drivers/vga.c lib/format.c lib/string.c
+ASM_SRCS := arch/i386/boot.asm arch/i386/gdt_load.asm arch/i386/isr.asm
 # boot.o first so _start leads .text (linker.ld already puts .multiboot first).
 OBJS := $(ASM_SRCS:%.asm=$(BUILD)/%.o) $(C_SRCS:%.c=$(BUILD)/%.o)
+KMAIN_OBJ   := $(BUILD)/kernel/kmain.o
+COMMON_OBJS := $(filter-out $(KMAIN_OBJ),$(OBJS))
 
 QEMU_FLAGS := -accel tcg -m 128M -smp 1 -nic none -no-reboot
 
@@ -47,6 +52,15 @@ BADMAGIC_ELF    := $(BUILD)/test/bad-magic.elf
 BADMAGIC_ISO    := $(BUILD)/test/bad-magic.iso
 M0_TEST_IMAGES  := $(NEG_BAD_ELF) $(NEG_BAD_ISO) $(NEG_EXIT_ISO) $(NEG_NOLOAD_ELF) $(BADMAGIC_ISO)
 
+# M1 selftest kernels: kmain.c rebuilt with -DRANGEROS_SELFTEST plus one
+# tests/kernel/selftest_<case>.c that defines selftest_run().
+SELFTESTS      := ud gp vga
+SELFTEST_KMAIN := $(BUILD)/test/kmain-selftest.o
+SELFTEST_ELFS  := $(SELFTESTS:%=$(BUILD)/test/selftest-%.elf)
+SELFTEST_ISOS  := $(SELFTESTS:%=$(BUILD)/test/selftest-%.iso)
+HOST_FORMAT    := $(BUILD)/host/test_format
+M1_TEST_IMAGES := $(SELFTEST_ELFS) $(SELFTEST_ISOS) $(HOST_FORMAT)
+
 # $(call make_iso,ELF,GRUB_CFG,ISO): stage ELF as /boot/kernel.elf in
 # ISO.d (always exactly these two files, overwritten each time).
 define make_iso
@@ -57,7 +71,9 @@ define make_iso
 	    > $(3).mkrescue.log 2>&1 || { cat $(3).mkrescue.log; exit 1; }
 endef
 
-.PHONY: all iso check test test-m0 run versions clean
+.PHONY: all iso check test test-m0 test-m1 host-test run run-vga versions clean
+# Keep intermediate test ELFs produced by pattern rules.
+.SECONDARY:
 
 all: $(KERNEL) $(ISO)
 
@@ -111,6 +127,24 @@ $(BADMAGIC_ELF): $(OBJS) $(BUILD)/tests/kernel/bad_magic_entry.o $(LDSCRIPT)
 $(BADMAGIC_ISO): $(BADMAGIC_ELF) boot/grub/grub.cfg
 	$(call make_iso,$(BADMAGIC_ELF),boot/grub/grub.cfg,$@)
 
+# --- M1 selftest kernels and host unit test -----------------------------
+
+$(SELFTEST_KMAIN): kernel/kmain.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -DRANGEROS_SELFTEST -c -o $@ $<
+
+$(BUILD)/test/selftest-%.elf: $(COMMON_OBJS) $(SELFTEST_KMAIN) $(BUILD)/tests/kernel/selftest_%.o $(LDSCRIPT)
+	$(LD) $(LDFLAGS) -T $(LDSCRIPT) -o $@ \
+	    $(COMMON_OBJS) $(SELFTEST_KMAIN) $(BUILD)/tests/kernel/selftest_$*.o
+
+$(BUILD)/test/selftest-%.iso: $(BUILD)/test/selftest-%.elf boot/grub/grub.cfg
+	$(call make_iso,$<,boot/grub/grub.cfg,$@)
+
+$(HOST_FORMAT): tests/host/test_format.c lib/format.c include/rangeros/format.h
+	@mkdir -p $(dir $@)
+	$(HOST_CC) -std=c11 -O2 -Wall -Wextra -Werror -Iinclude -o $@ \
+	    tests/host/test_format.c lib/format.c
+
 # --- checks and tests ---------------------------------------------------
 
 check: $(KERNEL)
@@ -118,14 +152,27 @@ check: $(KERNEL)
 	$(PYTHON) tests/scripts/check_elf.py $(KERNEL) | tee $(LOGDIR)/elf-check.log; \
 	    exit $${PIPESTATUS[0]}
 
-test: test-m0
+host-test: $(HOST_FORMAT)
+	$(HOST_FORMAT)
+
+test: test-m0 test-m1
 
 test-m0: all $(M0_TEST_IMAGES)
 	bash tests/scripts/m0_test.sh
 
+test-m1: all $(M1_TEST_IMAGES)
+	bash tests/scripts/m1_test.sh
+
 # Interactive run on the serial console. Quit QEMU with Ctrl-A then X.
 run: $(ISO)
 	$(QEMU) $(QEMU_FLAGS) -nographic -boot d -cdrom $(ISO)
+
+# VGA text console drawn in the terminal by curses (needs a real TTY,
+# e.g. ssh -t). Serial goes to build/run-vga.serial.log.
+# Quit: Esc then 2 opens the QEMU monitor; type quit and press Enter.
+run-vga: $(ISO)
+	$(QEMU) $(QEMU_FLAGS) -display curses -serial file:$(BUILD)/run-vga.serial.log \
+	    -boot d -cdrom $(ISO)
 
 versions:
 	@mkdir -p $(BUILD)
@@ -134,4 +181,4 @@ versions:
 clean:
 	rm -rf build
 
--include $(OBJS:.o=.d)
+-include $(OBJS:.o=.d) $(SELFTEST_KMAIN:.o=.d) $(SELFTESTS:%=$(BUILD)/tests/kernel/selftest_%.d)
