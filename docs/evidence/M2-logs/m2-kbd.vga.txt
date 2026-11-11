@@ -1,0 +1,25 @@
+00|RangerOS 0.0.3-m2 (i386, multiboot1)                                            |
+01|GDT_OK cs=0x0008 ds=0x0010 ss=0x0010                                            |
+02|IDT_OK vectors=256                                                              |
+03|PIT_OK hz=100 divisor=11932                                                     |
+04|KBD_OK set=1 translate=1 config=0x61 queue=128                                  |
+05|PIC_OK vectors=0x20/0x28 mask=0xfc/0xff                                         |
+06|IRQ_ON                                                                          |
+07|BOOT_OK                                                                         |
+08|Hi RangerOS 123!                                                                |
+09|ok                                                                              |
+10|                                                                                |
+11|                                                                                |
+12|                                                                                |
+13|                                                                                |
+14|                                                                                |
+15|                                                                                |
+16|                                                                                |
+17|                                                                                |
+18|                                                                                |
+19|                                                                                |
+20|                                                                                |
+21|                                                                                |
+22|                                                                                |
+23|                                                                                |
+24|                                                                                |

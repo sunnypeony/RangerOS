@@ -1,0 +1,1 @@
+RESULT=TIMEOUT code=1 elapsed=6.1s qemu_rc=running(killed) log=build/test-logs/neg-kbd-no-injection.serial.log detail=1/2 markers within 6s, waiting for '^KEY '

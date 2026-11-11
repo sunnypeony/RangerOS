@@ -1,0 +1,1 @@
+RESULT=PASS code=0 elapsed=3.5s qemu_rc=running(killed) log=build/test-logs/m2-irqret.serial.log detail=5 markers, alive after 1.0s grace
