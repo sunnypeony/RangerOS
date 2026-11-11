@@ -7,7 +7,7 @@ set -u
 cd "$(dirname "$0")/../.."
 
 LOGDIR=build/test-logs
-SUMMARY=$LOGDIR/summary.txt
+SUMMARY=$LOGDIR/summary-m0.txt
 RUN="python3 tests/scripts/run_qemu.py"
 BANNER='^RangerOS [0-9][^ ]* \(i386, multiboot1\)$'
 mkdir -p "$LOGDIR"
@@ -35,11 +35,22 @@ cp $LOGDIR/elf-check.log.out $LOGDIR/elf-check.log
 
 # Negative: checker must reject an ELF without a valid Multiboot header.
 case_run neg-elf-bad-multiboot 1 $LOGDIR/neg-elf-bad-multiboot.log \
-    python3 tests/scripts/check_elf.py build/neg/bad-multiboot/boot/kernel.elf
+    python3 tests/scripts/check_elf.py build/neg/bad-multiboot.elf
+
+# Negative: .bss linked NOLOAD is outside every PT_LOAD -> checker rc=1.
+case_run neg-elf-noload-bss 1 $LOGDIR/neg-elf-noload-bss.log \
+    python3 tests/scripts/check_elf.py build/neg/noload-bss.elf
 
 case_run boot 0 $LOGDIR/boot.serial.log \
     $RUN --iso build/rangeros.iso --log $LOGDIR/boot.serial.log \
          --timeout 15 --expect "$BANNER" --expect '^BOOT_OK$'
+
+# BOOT_FAIL path: test entry enters _start with EAX=0xDEADBEEF. Must print
+# BOOT_FAIL with that value, must not print BOOT_OK, and must stay halted.
+case_run boot-fail-bad-magic 0 $LOGDIR/boot-fail-bad-magic.serial.log \
+    $RUN --iso build/test/bad-magic.iso --log $LOGDIR/boot-fail-bad-magic.serial.log \
+         --timeout 15 --expect "$BANNER" --expect '^BOOT_FAIL bad multiboot magic 0xdeadbeef$' \
+         --fail '^BOOT_OK$' --fail 'PANIC' --fail '^error: '
 
 # Negative: GRUB refuses the image ("error: ..." on serial) -> FAIL_MARKER.
 case_run neg-boot-bad-multiboot 3 $LOGDIR/neg-bad-multiboot.serial.log \

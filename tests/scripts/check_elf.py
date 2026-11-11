@@ -17,6 +17,63 @@ HOST_START_SYMBOLS = {"_init", "_fini", "main", "__libc_start_main",
 failures = []
 
 
+SHF_ALLOC = 0x2
+SHT_NOBITS = 8
+PT_LOAD = 1
+
+
+def parse_elf32(data):
+    """Return (sections, loads) parsed straight from ELF32 headers."""
+    (e_phoff, e_shoff) = struct.unpack_from("<II", data, 28)
+    (e_phentsize, e_phnum, e_shentsize, e_shnum, e_shstrndx) = struct.unpack_from(
+        "<HHHHH", data, 42)
+    loads = []
+    for i in range(e_phnum):
+        p_type, p_offset, p_vaddr, p_paddr, p_filesz, p_memsz = struct.unpack_from(
+            "<IIIIII", data, e_phoff + i * e_phentsize)
+        if p_type == PT_LOAD:
+            loads.append(dict(offset=p_offset, vaddr=p_vaddr, paddr=p_paddr,
+                              filesz=p_filesz, memsz=p_memsz))
+    raw = [struct.unpack_from("<IIIIII", data, e_shoff + i * e_shentsize)
+           for i in range(e_shnum)]
+    strtab_off = raw[e_shstrndx][4]
+    sections = []
+    for sh_name, sh_type, sh_flags, sh_addr, sh_offset, sh_size in raw:
+        end = data.index(b"\0", strtab_off + sh_name)
+        sections.append(dict(name=data[strtab_off + sh_name:end].decode(), type=sh_type,
+                             flags=sh_flags, addr=sh_addr, offset=sh_offset, size=sh_size))
+    return sections, loads
+
+
+def uncovered_alloc_sections(sections, loads):
+    """Names of non-empty SHF_ALLOC sections not loaded by any PT_LOAD.
+
+    Every such section must lie inside a PT_LOAD memory range. Sections
+    with file contents (not SHT_NOBITS) must also lie inside that
+    segment's file range at the matching offset. NOBITS (.bss) is judged
+    by memory range only.
+    """
+    bad = []
+    for s in sections:
+        if not (s["flags"] & SHF_ALLOC) or s["size"] == 0:
+            continue
+        ok = False
+        for l in loads:
+            if not (l["vaddr"] <= s["addr"] and s["addr"] + s["size"] <= l["vaddr"] + l["memsz"]):
+                continue
+            if s["type"] == SHT_NOBITS:
+                ok = True
+            elif (l["offset"] <= s["offset"]
+                  and s["offset"] + s["size"] <= l["offset"] + l["filesz"]
+                  and s["addr"] - l["vaddr"] == s["offset"] - l["offset"]):
+                ok = True
+            if ok:
+                break
+        if not ok:
+            bad.append(s["name"])
+    return bad
+
+
 def run(*cmd):
     return subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                           universal_newlines=True)
@@ -103,6 +160,13 @@ def main():
               hex(mb_off) if mb_off is not None else "not found in first 8 KiB",
               hex(struct.unpack_from("<I", data, mb_off + 4)[0]) if mb_off is not None else "-",
               in_load))
+
+    sections, ph_loads = parse_elf32(data)
+    alloc = [x["name"] for x in sections if x["flags"] & SHF_ALLOC and x["size"]]
+    bad_alloc = uncovered_alloc_sections(sections, ph_loads)
+    check("alloc-sections-loaded", not bad_alloc,
+          "%d ALLOC sections %s; not covered by PT_LOAD: %s" % (
+              len(alloc), alloc, bad_alloc or "none"))
 
     gf = run("grub-file", "--is-x86-multiboot", path)
     check("grub-file-multiboot", gf.returncode == 0,
