@@ -58,7 +58,7 @@ QEMU 以 `-nographic` 运行（TCG、单 CPU、128 MiB、`-no-reboot`），GRUB 
 ssh -t rangeros-vm 'cd ~/projects/RangerOS && make run-vga'
 ```
 
-`-display curses` 在终端里绘制 VGA 文本屏幕，串口输出写入 `build/run-vga.serial.log`。退出：按 `Esc` 再按 `2` 进入 QEMU monitor，输入 `quit` 并回车。（此方式尚未人工验证。）
+`-display curses` 在终端里绘制 VGA 文本屏幕，串口输出写入 `build/run-vga.serial.log`。退出：按 `Alt-2` 进入 QEMU monitor，输入 `quit` 并回车（2026-11-11 已人工验证）。这里 **Ctrl-A X 无效**，它只适用于 `make run`。
 
 ## 测试
 

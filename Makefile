@@ -169,7 +169,8 @@ run: $(ISO)
 
 # VGA text console drawn in the terminal by curses (needs a real TTY,
 # e.g. ssh -t). Serial goes to build/run-vga.serial.log.
-# Quit: Esc then 2 opens the QEMU monitor; type quit and press Enter.
+# Quit: Alt-2 opens the QEMU monitor; type quit and press Enter.
+# (Ctrl-A X only works for the -nographic serial console of make run.)
 run-vga: $(ISO)
 	$(QEMU) $(QEMU_FLAGS) -display curses -serial file:$(BUILD)/run-vga.serial.log \
 	    -boot d -cdrom $(ISO)
