@@ -1,0 +1,10 @@
+[H[J[1;1HRangerOS 0.0.3-m2 (i386, multiboot1)
+GDT_OK cs=0x0008 ds=0x0010 ss=0x0010
+IDT_OK vectors=256
+PIT_OK hz=100 divisor=11932
+KBD_OK set=1 translate=1 config=0x61 queue=128
+PIC_OK vectors=0x20/0x28 mask=0xfc/0xff
+IRQ_ON
+BOOT_OK
+SELFTEST irqret: start ticks=0 wait=150 if=1
+IRQRET_FAIL code=4 (esi) iters=755513

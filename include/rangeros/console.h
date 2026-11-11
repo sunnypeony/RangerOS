@@ -10,5 +10,7 @@ void console_putc(char c);
 /* Format syntax: see rangeros/format.h. */
 int kprintf(const char *fmt, ...) __attribute__((format(printf, 1, 2)));
 int kvprintf(const char *fmt, va_list ap);
+/* COM1 only: status/log lines that must not clutter the VGA screen. */
+int kprintf_serial(const char *fmt, ...) __attribute__((format(printf, 1, 2)));
 
 #endif

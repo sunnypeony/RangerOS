@@ -3,7 +3,9 @@
 #include "arch/i386/cpu.h"
 #include "arch/i386/trapframe.h"
 #include "rangeros/console.h"
+#include "rangeros/irq.h"
 #include "rangeros/panic.h"
+#include "rangeros/pic.h"
 #include "rangeros/serial.h"
 
 void isr_dispatch(struct trap_frame *tf);
@@ -19,9 +21,9 @@ static const char *const exception_names[32] = {
 
 static int in_trap;
 
-/* Called from isr_common (arch/i386/isr.asm) with IF=0. M1 has no
- * recoverable vectors: report the frame, then panic. */
-void isr_dispatch(struct trap_frame *tf)
+/* CPU exceptions and unknown software interrupts: report, then panic.
+ * Unchanged from M1; never returns. */
+static __attribute__((noreturn)) void fatal_trap(struct trap_frame *tf)
 {
     if (in_trap) {
         /* Fault while reporting a fault: avoid kprintf/VGA, just stop. */
@@ -46,4 +48,17 @@ void isr_dispatch(struct trap_frame *tf)
     kprintf("  frame=0x%08x pusha_esp=0x%08x\n", (uint32_t)tf, tf->esp_pusha);
 
     panic("unhandled %s %u", tf->vector < 32 ? "exception" : "interrupt", tf->vector);
+}
+
+/* Called from isr_common (arch/i386/isr.asm) with IF=0 for every vector.
+ * Hardware IRQs (0x20-0x2F after PIC remap) return, so isr_common
+ * restores the interrupted registers, stack and EFLAGS with iretd.
+ * Everything else is fatal. */
+void isr_dispatch(struct trap_frame *tf)
+{
+    if (tf->vector >= PIC_MASTER_VECTOR && tf->vector < PIC_MASTER_VECTOR + IRQ_LINES) {
+        irq_dispatch(tf->vector - PIC_MASTER_VECTOR);
+        return;
+    }
+    fatal_trap(tf);
 }

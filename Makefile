@@ -31,9 +31,10 @@ CFLAGS := --target=i686-none-elf -std=c11 -O2 -g \
 ASFLAGS := -f elf32 -g -F dwarf -w+all
 LDFLAGS := -m elf_i386 -nostdlib -static --build-id=none -z max-page-size=0x1000
 
-C_SRCS   := kernel/kmain.c kernel/console.c kernel/panic.c \
+C_SRCS   := kernel/kmain.c kernel/console.c kernel/panic.c kernel/irq.c \
             arch/i386/gdt.c arch/i386/idt.c arch/i386/trap.c \
-            drivers/serial.c drivers/vga.c lib/format.c lib/string.c
+            drivers/serial.c drivers/vga.c drivers/pic.c drivers/pit.c drivers/keyboard.c \
+            lib/format.c lib/string.c lib/input_queue.c lib/kbd_decode.c
 ASM_SRCS := arch/i386/boot.asm arch/i386/gdt_load.asm arch/i386/isr.asm
 # boot.o first so _start leads .text (linker.ld already puts .multiboot first).
 OBJS := $(ASM_SRCS:%.asm=$(BUILD)/%.o) $(C_SRCS:%.c=$(BUILD)/%.o)
@@ -54,12 +55,24 @@ M0_TEST_IMAGES  := $(NEG_BAD_ELF) $(NEG_BAD_ISO) $(NEG_EXIT_ISO) $(NEG_NOLOAD_EL
 
 # M1 selftest kernels: kmain.c rebuilt with -DRANGEROS_SELFTEST plus one
 # tests/kernel/selftest_<case>.c that defines selftest_run().
-SELFTESTS      := ud gp vga
+SELFTESTS      := ud gp vga irqret
 SELFTEST_KMAIN := $(BUILD)/test/kmain-selftest.o
 SELFTEST_ELFS  := $(SELFTESTS:%=$(BUILD)/test/selftest-%.elf)
 SELFTEST_ISOS  := $(SELFTESTS:%=$(BUILD)/test/selftest-%.iso)
 HOST_FORMAT    := $(BUILD)/host/test_format
 M1_TEST_IMAGES := $(SELFTEST_ELFS) $(SELFTEST_ISOS) $(HOST_FORMAT)
+
+# M2: IRQ-return probe, plus a negative variant whose isr.o corrupts ESI
+# on IRQ return once armed (the probe must catch it).
+IRQRET_PROBE     := $(BUILD)/tests/kernel/irqret_probe.o
+SABOTAGE_ISR     := $(BUILD)/test/isr-sabotage.o
+SABOTAGE_TEST    := $(BUILD)/test/selftest_irqret_sabotage.o
+SABOTAGE_ELF     := $(BUILD)/test/selftest-irqret-sabotage.elf
+SABOTAGE_ISO     := $(BUILD)/test/selftest-irqret-sabotage.iso
+HOST_QUEUE       := $(BUILD)/host/test_input_queue
+HOST_KBD         := $(BUILD)/host/test_kbd_decode
+M2_TEST_IMAGES   := $(BUILD)/test/selftest-irqret.iso $(SABOTAGE_ELF) $(SABOTAGE_ISO) \
+                    $(HOST_QUEUE) $(HOST_KBD)
 
 # $(call make_iso,ELF,GRUB_CFG,ISO): stage ELF as /boot/kernel.elf in
 # ISO.d (always exactly these two files, overwritten each time).
@@ -71,7 +84,7 @@ define make_iso
 	    > $(3).mkrescue.log 2>&1 || { cat $(3).mkrescue.log; exit 1; }
 endef
 
-.PHONY: all iso check test test-m0 test-m1 host-test run run-vga versions clean
+.PHONY: all iso check test test-m0 test-m1 test-m2 host-test run run-vga versions clean
 # Keep intermediate test ELFs produced by pattern rules.
 .SECONDARY:
 
@@ -134,16 +147,43 @@ $(SELFTEST_KMAIN): kernel/kmain.c
 	$(CC) $(CFLAGS) -DRANGEROS_SELFTEST -c -o $@ $<
 
 $(BUILD)/test/selftest-%.elf: $(COMMON_OBJS) $(SELFTEST_KMAIN) $(BUILD)/tests/kernel/selftest_%.o $(LDSCRIPT)
-	$(LD) $(LDFLAGS) -T $(LDSCRIPT) -o $@ \
-	    $(COMMON_OBJS) $(SELFTEST_KMAIN) $(BUILD)/tests/kernel/selftest_$*.o
+	$(LD) $(LDFLAGS) -T $(LDSCRIPT) -o $@ $(filter %.o,$^)
+
+# Extra object for the IRQ-return selftest (added to the pattern rule's $^).
+$(BUILD)/test/selftest-irqret.elf: $(IRQRET_PROBE)
 
 $(BUILD)/test/selftest-%.iso: $(BUILD)/test/selftest-%.elf boot/grub/grub.cfg
 	$(call make_iso,$<,boot/grub/grub.cfg,$@)
 
-$(HOST_FORMAT): tests/host/test_format.c lib/format.c include/rangeros/format.h
+$(SABOTAGE_ISR): arch/i386/isr.asm
 	@mkdir -p $(dir $@)
-	$(HOST_CC) -std=c11 -O2 -Wall -Wextra -Werror -Iinclude -o $@ \
-	    tests/host/test_format.c lib/format.c
+	$(NASM) $(ASFLAGS) -DRANGEROS_IRQ_RETURN_SABOTAGE -o $@ $<
+
+$(SABOTAGE_TEST): tests/kernel/selftest_irqret.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -DIRQRET_SABOTAGE -c -o $@ $<
+
+$(SABOTAGE_ELF): $(filter-out $(BUILD)/arch/i386/isr.o,$(COMMON_OBJS)) $(SABOTAGE_ISR) \
+                 $(SELFTEST_KMAIN) $(SABOTAGE_TEST) $(IRQRET_PROBE) $(LDSCRIPT)
+	$(LD) $(LDFLAGS) -T $(LDSCRIPT) -o $@ $(filter %.o,$^)
+
+$(SABOTAGE_ISO): $(SABOTAGE_ELF) boot/grub/grub.cfg
+	$(call make_iso,$<,boot/grub/grub.cfg,$@)
+
+# $(call host_test,OUT,TEST_SRC,LIB_SRC): native gcc build of a pure lib module.
+define host_test
+	@mkdir -p $(dir $(1))
+	$(HOST_CC) -std=c11 -O2 -Wall -Wextra -Werror -Iinclude -o $(1) $(2) $(3)
+endef
+
+$(HOST_FORMAT): tests/host/test_format.c lib/format.c include/rangeros/format.h
+	$(call host_test,$@,tests/host/test_format.c,lib/format.c)
+
+$(HOST_QUEUE): tests/host/test_input_queue.c lib/input_queue.c include/rangeros/input_queue.h
+	$(call host_test,$@,tests/host/test_input_queue.c,lib/input_queue.c)
+
+$(HOST_KBD): tests/host/test_kbd_decode.c lib/kbd_decode.c include/rangeros/kbd_decode.h
+	$(call host_test,$@,tests/host/test_kbd_decode.c,lib/kbd_decode.c)
 
 # --- checks and tests ---------------------------------------------------
 
@@ -152,16 +192,19 @@ check: $(KERNEL)
 	$(PYTHON) tests/scripts/check_elf.py $(KERNEL) | tee $(LOGDIR)/elf-check.log; \
 	    exit $${PIPESTATUS[0]}
 
-host-test: $(HOST_FORMAT)
-	$(HOST_FORMAT)
+host-test: $(HOST_FORMAT) $(HOST_QUEUE) $(HOST_KBD)
+	$(HOST_FORMAT) && $(HOST_QUEUE) && $(HOST_KBD)
 
-test: test-m0 test-m1
+test: test-m0 test-m1 test-m2
 
 test-m0: all $(M0_TEST_IMAGES)
 	bash tests/scripts/m0_test.sh
 
 test-m1: all $(M1_TEST_IMAGES)
 	bash tests/scripts/m1_test.sh
+
+test-m2: all $(M2_TEST_IMAGES)
+	bash tests/scripts/m2_test.sh
 
 # Interactive run on the serial console. Quit QEMU with Ctrl-A then X.
 run: $(ISO)
@@ -182,4 +225,5 @@ versions:
 clean:
 	rm -rf build
 
--include $(OBJS:.o=.d) $(SELFTEST_KMAIN:.o=.d) $(SELFTESTS:%=$(BUILD)/tests/kernel/selftest_%.d)
+-include $(OBJS:.o=.d) $(SELFTEST_KMAIN:.o=.d) $(SABOTAGE_TEST:.o=.d) \
+         $(SELFTESTS:%=$(BUILD)/tests/kernel/selftest_%.d)

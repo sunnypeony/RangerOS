@@ -27,8 +27,10 @@ static void vga_printf(const char *fmt, ...)
     va_end(ap);
 }
 
-void selftest_run(void)
+void selftest_run(enum selftest_stage stage)
 {
+    if (stage != SELFTEST_STAGE_EARLY)
+        return;
     serial_write("SELFTEST vga: start\n");
     vga_clear();
     for (int i = 0; i < VGA_TEST_ROWS; i++)

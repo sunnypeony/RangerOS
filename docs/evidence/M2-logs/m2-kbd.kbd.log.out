@@ -1,0 +1,8 @@
+PASS key-count: 22 KEY lines (want 22)
+PASS lines: got ['Hi RangerOS 123!', 'ok'], want ['Hi RangerOS 123!', 'ok']
+PASS backspace-seen: BACKSPACE byte reached the main loop
+PASS enter-seen: 2 ENTER
+PASS shift-press-release: upper-case followed by lower-case
+PASS kbd-stats: chars=22 dropped=0 scancodes=53 = chars+ignored(53) (want chars=22, dropped=0)
+PASS all-scancodes-via-irq1: kbd_scancodes in later TICKS: [54, 54] (want 54)
+KBD_CHECK PASS (0 failed)

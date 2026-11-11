@@ -1,25 +1,34 @@
 #!/usr/bin/env python3
 """Boot an ISO in QEMU and judge its COM1 serial log.
 
-Exit codes (decoded by m0_test.sh/m1_test.sh; never trust QEMU's own
-exit code):
-  0 PASS        every --expect pattern matched a line, in order; no fail
-                pattern; QEMU still running after the grace period; any
-                requested VGA capture succeeded
-  1 TIMEOUT     not all --expect patterns seen within --timeout seconds
+Exit codes (decoded by m0_test.sh/m1_test.sh/m2_test.sh; never trust
+QEMU's own exit code):
+  0 PASS        every --expect (and --expect-after) pattern matched a line,
+                in order; no fail pattern; QEMU still running after the
+                grace period; any requested key injection and VGA capture
+                succeeded
+  1 TIMEOUT     not all patterns seen within --timeout seconds (counted
+                from boot for --expect, from the end of key injection for
+                --expect-after)
   2 EARLY_EXIT  QEMU exited by itself (shutdown, reset under -no-reboot,
                 crash) before PASS was established
   3 FAIL_MARKER a --fail pattern matched a serial line
-  4 ERROR       usage error, QEMU could not be started, or VGA capture
-                through the QEMU monitor failed
+  4 ERROR       usage error, QEMU could not be started, or the QEMU monitor
+                (key injection or VGA capture) failed
 
-VGA capture (--vga-dump / --screendump) runs through a QEMU monitor
+Key injection (--sendkey, repeatable) runs once every --expect pattern has
+matched and the grace period has passed. Each key goes through the QEMU
+monitor's "sendkey" command, i.e. QEMU's PS/2 keyboard model, so the
+guest sees real i8042 scan codes and IRQ1s; nothing is typed on COM1.
+--expect-after patterns are then matched after the --expect ones.
+
+VGA capture (--vga-dump / --screendump) runs through the same monitor
 socket after PASS is established and before QEMU is stopped:
   --vga-dump   pmemsave of the 80x25 text buffer at 0xB8000 (4000 bytes)
   --screendump the rendered VGA screen as PPM (a real screenshot)
 
-isa-debug-exit is not used: a passing kernel halts and the runner stops
-QEMU itself after the grace period.
+isa-debug-exit is not used: a passing kernel halts or idles and the runner
+stops QEMU itself after the grace period.
 """
 import argparse
 import os
@@ -72,7 +81,7 @@ def stop(proc):
         proc.wait()
 
 
-def monitor_run(sock_path, commands, timeout=10.0):
+def monitor_run(sock_path, commands, delay=0.0, timeout=10.0):
     """Send HMP commands over the monitor socket, one prompt at a time."""
     s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
     s.settimeout(timeout)
@@ -92,7 +101,13 @@ def monitor_run(sock_path, commands, timeout=10.0):
     until_prompt()
     for cmd in commands:
         s.sendall(cmd.encode() + b"\n")
-        until_prompt()
+        reply = ANSI.sub("", until_prompt().decode("utf-8", "replace"))
+        # The reply echoes the command; anything after it is an error text.
+        tail = reply.rsplit(cmd, 1)[-1].strip()
+        if tail:
+            raise OSError("monitor %r: %s" % (cmd, tail))
+        if delay:
+            time.sleep(delay)
     s.close()
 
 
@@ -116,6 +131,12 @@ def main():
     ap.add_argument("--timeout", type=float, default=15.0)
     ap.add_argument("--grace", type=float, default=1.0,
                     help="seconds QEMU must stay up after the last marker")
+    ap.add_argument("--sendkey", action="append", default=[],
+                    help="QEMU sendkey key (e.g. a, shift-h, spc, ret); repeat")
+    ap.add_argument("--key-delay", type=float, default=0.25,
+                    help="seconds between injected keys")
+    ap.add_argument("--expect-after", action="append", default=[],
+                    help="regex expected after key injection; repeat, in order")
     ap.add_argument("--vga-dump", help="write the VGA text buffer here after PASS")
     ap.add_argument("--screendump", help="write a PPM screenshot here after PASS")
     ap.add_argument("--qemu", default="qemu-system-i386")
@@ -131,7 +152,10 @@ def main():
     start = time.monotonic()
     if not args.expect or not os.path.isfile(args.iso):
         return finish("ERROR", "need --expect and an existing --iso", "-", start)
-    expects = [re.compile(e) for e in args.expect]
+    if args.expect_after and not args.sendkey:
+        return finish("ERROR", "--expect-after needs --sendkey", "-", start)
+    expects = [re.compile(e) for e in args.expect + args.expect_after]
+    phase1 = len(args.expect)
     fails = [re.compile(f) for f in (args.fail if args.fail is not None else DEFAULT_FAIL)]
 
     log = os.path.abspath(args.log)
@@ -143,10 +167,11 @@ def main():
     mon_sock = log + ".mon"
     if os.path.exists(mon_sock):
         os.remove(mon_sock)
-    monitor = ["unix:%s,server,nowait" % mon_sock] if captures else ["none"]
+    use_monitor = bool(captures or args.sendkey)
+    monitor = "unix:%s,server,nowait" % mon_sock if use_monitor else "none"
 
     cmd = [args.qemu, "-accel", "tcg", "-m", "128M", "-smp", "1", "-nic", "none",
-           "-no-reboot", "-display", "none", "-monitor", monitor[0],
+           "-no-reboot", "-display", "none", "-monitor", monitor,
            "-serial", "file:" + log, "-boot", "d", "-cdrom", args.iso]
     qemu_out = open(log + ".qemu", "w")
     qemu_out.write("# " + " ".join(cmd) + "\n")
@@ -159,6 +184,7 @@ def main():
 
     deadline = start + args.timeout
     passed_at = None
+    injected = not args.sendkey
     try:
         while True:
             rc = proc.poll()
@@ -169,17 +195,30 @@ def main():
                 return finish("EARLY_EXIT", "QEMU exited after %d/%d markers" % (
                     want, len(expects)), rc, start)
             now = time.monotonic()
-            if want == len(expects):
+            target = len(expects) if injected else phase1
+            if want >= target:
                 if passed_at is None:
                     passed_at = now
                 elif now - passed_at >= args.grace:
-                    break
+                    if injected:
+                        break
+                    try:
+                        monitor_run(mon_sock, ["sendkey %s" % k for k in args.sendkey],
+                                    delay=args.key_delay)
+                    except OSError as e:
+                        return finish("ERROR", "sendkey: %s" % e, proc.poll(), start)
+                    injected = True
+                    passed_at = None
+                    deadline = time.monotonic() + args.timeout
+                    continue
             elif now >= deadline:
                 return finish("TIMEOUT", "%d/%d markers within %.0fs, waiting for %r" % (
                     want, len(expects), args.timeout, expects[want].pattern), None, start)
             time.sleep(0.1)
 
         detail = "%d markers, alive after %.1fs grace" % (len(expects), args.grace)
+        if args.sendkey:
+            detail += ", injected %d keys" % len(args.sendkey)
         if captures:
             mon_cmds = []
             if args.vga_dump:

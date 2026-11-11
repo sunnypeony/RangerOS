@@ -1,0 +1,1 @@
+RESULT=PASS code=0 elapsed=11.9s qemu_rc=running(killed) log=build/test-logs/m2-kbd.serial.log detail=6 markers, alive after 1.0s grace, injected 22 keys, captured vga+screen

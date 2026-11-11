@@ -1,0 +1,1 @@
+RESULT=PASS code=0 elapsed=6.4s qemu_rc=running(killed) log=build/test-logs/m2-ticks.serial.log detail=11 markers, alive after 1.0s grace

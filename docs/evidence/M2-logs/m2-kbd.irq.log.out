@@ -1,0 +1,7 @@
+PASS reports: 9 TICKS lines (need >= 1)
+PASS min-ticks: last TICKS 900, irq0=900 (need >= 100)
+PASS ticks-increase: tick values [100, 200, 300, 400, 500, 600, 700, 800, 900]
+PASS irq0-increase: irq0 keeps arriving after EOI
+PASS per-report-invariants: eoi==irq, irq0>=ticks, maxdepth=1, ifin=0, unexpected=0: ok
+PASS spurious: spurious=0
+IRQ_CHECK PASS (0 failed)

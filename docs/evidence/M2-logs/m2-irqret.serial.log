@@ -1,0 +1,13 @@
+[H[J[1;1HRangerOS 0.0.3-m2 (i386, multiboot1)
+GDT_OK cs=0x0008 ds=0x0010 ss=0x0010
+IDT_OK vectors=256
+PIT_OK hz=100 divisor=11932
+KBD_OK set=1 translate=1 config=0x61 queue=128
+PIC_OK vectors=0x20/0x28 mask=0xfc/0xff
+IRQ_ON
+BOOT_OK
+SELFTEST irqret: start ticks=0 wait=150 if=1
+IRQRET_OK iters=107959923 ticks=150 irq0=150 eax=0x34be6dd8 stack=0x6ac89fd9
+TICKS 165 irq0=165 eoi0=165 irq1=1 eoi1=1 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=0 kbd_empty=1 dropped=0
+TICKS 200 irq0=200 eoi0=200 irq1=1 eoi1=1 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=0 kbd_empty=1 dropped=0
+TICKS 300 irq0=300 eoi0=300 irq1=1 eoi1=1 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=0 kbd_empty=1 dropped=0
