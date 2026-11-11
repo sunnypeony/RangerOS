@@ -1,0 +1,5 @@
+PASS commands: 3 submitted lines match
+PASS blocks-closed: every SHELL block ends with a KBD line
+PASS len-field: len matches text and never exceeds 127
+FAIL dropped: KBD dropped per block [12, 12, 12] (want 0)
+SHELL_CHECK FAIL (1 failed)

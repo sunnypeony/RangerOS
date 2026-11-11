@@ -26,6 +26,8 @@ uint8_t keyboard_config(void);
 /* Next queued byte, or -1 if empty. */
 int keyboard_read(void);
 int keyboard_pending(void);
+/* Bytes currently waiting in the input queue (0..INPUT_QUEUE_CAPACITY). */
+uint32_t keyboard_queued(void);
 void keyboard_stats_snapshot(struct keyboard_stats *out);
 
 #endif

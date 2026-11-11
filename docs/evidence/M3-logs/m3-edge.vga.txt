@@ -1,0 +1,25 @@
+00|BOOT_OK                                                                         |
+01|RangerOS shell: type help                                                       |
+02|>                                                                               |
+03|> foo                                                                           |
+04|unknown command: foo (type help)                                                |
+05|> version                                                                       |
+06|RangerOS 0.1.0-mvp (i386, multiboot1)                                           |
+07|MVP: VGA+serial, GDT/IDT, exceptions, PIC/PIT 100 Hz, PS/2 keyboard, shell      |
+08|> ticks                                                                         |
+09|ticks=221 hz=100 uptime=2.21s (simulated)                                       |
+10|> ticks                                                                         |
+11|                                                                                |
+12|ticks=877 hz=100 uptime=8.77s (simulated)                                       |
+13|> ticks                                                                         |
+14|                                                                                |
+15|shell: line too long (max 127 chars), 1 rejected; discarded                     |
+16|> xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|
+17|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                               |
+18|shell: line too long (max 127 chars), 23 rejected; discarded                    |
+19|> version                                                                       |
+20|RangerOS 0.1.0-mvp (i386, multiboot1)                                           |
+21|MVP: VGA+serial, GDT/IDT, exceptions, PIC/PIT 100 Hz, PS/2 keyboard, shell      |
+22|> help me                                                                       |
+23|shell: help takes no arguments                                                  |
+24|>                                                                               |

@@ -1,0 +1,174 @@
+[H[J[1;1HRangerOS 0.1.0-mvp (i386, multiboot1)
+GDT_OK cs=0x0008 ds=0x0010 ss=0x0010
+IDT_OK vectors=256
+PIT_OK hz=100 divisor=11932
+KBD_OK set=1 translate=1 config=0x61 queue=128
+PIC_OK vectors=0x20/0x28 mask=0xfc/0xff
+IRQ_ON
+BOOT_OK
+QFULL_PAUSE ready target=140 queue_cap=128
+QFULL_PAUSE done queued=128 chars=128 dropped=12 scancodes=280
+RangerOS shell: type help
+KEY 0x30 '0'
+KEY 0x31 '1'
+KEY 0x32 '2'
+KEY 0x33 '3'
+KEY 0x34 '4'
+KEY 0x35 '5'
+KEY 0x36 '6'
+KEY 0x37 '7'
+KEY 0x38 '8'
+KEY 0x39 '9'
+KEY 0x30 '0'
+KEY 0x31 '1'
+KEY 0x32 '2'
+KEY 0x33 '3'
+KEY 0x34 '4'
+KEY 0x35 '5'
+KEY 0x36 '6'
+KEY 0x37 '7'
+KEY 0x38 '8'
+KEY 0x39 '9'
+KEY 0x30 '0'
+KEY 0x31 '1'
+KEY 0x32 '2'
+KEY 0x33 '3'
+KEY 0x34 '4'
+KEY 0x35 '5'
+KEY 0x36 '6'
+KEY 0x37 '7'
+KEY 0x38 '8'
+KEY 0x39 '9'
+KEY 0x30 '0'
+KEY 0x31 '1'
+KEY 0x32 '2'
+KEY 0x33 '3'
+KEY 0x34 '4'
+KEY 0x35 '5'
+KEY 0x36 '6'
+KEY 0x37 '7'
+KEY 0x38 '8'
+KEY 0x39 '9'
+KEY 0x30 '0'
+KEY 0x31 '1'
+KEY 0x32 '2'
+KEY 0x33 '3'
+KEY 0x34 '4'
+KEY 0x35 '5'
+KEY 0x36 '6'
+KEY 0x37 '7'
+KEY 0x38 '8'
+KEY 0x39 '9'
+KEY 0x30 '0'
+KEY 0x31 '1'
+KEY 0x32 '2'
+KEY 0x33 '3'
+KEY 0x34 '4'
+KEY 0x35 '5'
+KEY 0x36 '6'
+KEY 0x37 '7'
+KEY 0x38 '8'
+KEY 0x39 '9'
+KEY 0x30 '0'
+KEY 0x31 '1'
+KEY 0x32 '2'
+KEY 0x33 '3'
+KEY 0x34 '4'
+KEY 0x35 '5'
+KEY 0x36 '6'
+KEY 0x37 '7'
+KEY 0x38 '8'
+KEY 0x39 '9'
+KEY 0x30 '0'
+KEY 0x31 '1'
+KEY 0x32 '2'
+KEY 0x33 '3'
+KEY 0x34 '4'
+KEY 0x35 '5'
+KEY 0x36 '6'
+KEY 0x37 '7'
+KEY 0x38 '8'
+KEY 0x39 '9'
+KEY 0x30 '0'
+KEY 0x31 '1'
+KEY 0x32 '2'
+KEY 0x33 '3'
+KEY 0x34 '4'
+KEY 0x35 '5'
+KEY 0x36 '6'
+KEY 0x37 '7'
+KEY 0x38 '8'
+KEY 0x39 '9'
+KEY 0x30 '0'
+KEY 0x31 '1'
+KEY 0x32 '2'
+KEY 0x33 '3'
+KEY 0x34 '4'
+KEY 0x35 '5'
+KEY 0x36 '6'
+KEY 0x37 '7'
+KEY 0x38 '8'
+KEY 0x39 '9'
+KEY 0x30 '0'
+KEY 0x31 '1'
+KEY 0x32 '2'
+KEY 0x33 '3'
+KEY 0x34 '4'
+KEY 0x35 '5'
+KEY 0x36 '6'
+KEY 0x37 '7'
+KEY 0x38 '8'
+KEY 0x39 '9'
+KEY 0x30 '0'
+KEY 0x31 '1'
+KEY 0x32 '2'
+KEY 0x33 '3'
+KEY 0x34 '4'
+KEY 0x35 '5'
+KEY 0x36 '6'
+KEY 0x37 '7'
+KEY 0x38 '8'
+KEY 0x39 '9'
+KEY 0x30 '0'
+KEY 0x31 '1'
+KEY 0x32 '2'
+KEY 0x33 '3'
+KEY 0x34 '4'
+KEY 0x35 '5'
+KEY 0x36 '6'
+KEY 0x37 '7'
+TICKS 730 irq0=730 eoi0=730 irq1=281 eoi1=281 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=280 kbd_empty=1 dropped=12
+TICKS 731 irq0=731 eoi0=731 irq1=281 eoi1=281 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=280 kbd_empty=1 dropped=12
+TICKS 732 irq0=732 eoi0=732 irq1=281 eoi1=281 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=280 kbd_empty=1 dropped=12
+TICKS 733 irq0=733 eoi0=733 irq1=281 eoi1=281 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=280 kbd_empty=1 dropped=12
+TICKS 734 irq0=734 eoi0=734 irq1=281 eoi1=281 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=280 kbd_empty=1 dropped=12
+TICKS 735 irq0=735 eoi0=735 irq1=281 eoi1=281 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=280 kbd_empty=1 dropped=12
+TICKS 736 irq0=736 eoi0=736 irq1=281 eoi1=281 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=280 kbd_empty=1 dropped=12
+TICKS 800 irq0=800 eoi0=800 irq1=281 eoi1=281 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=280 kbd_empty=1 dropped=12
+TICKS 900 irq0=900 eoi0=900 irq1=281 eoi1=281 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=280 kbd_empty=1 dropped=12
+KEY 0x0a ENTER
+SHELL len=127 rejected=1 [0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456]
+shell: line too long (max 127 chars), 1 rejected; discarded
+KBD chars=129 scancodes=281 dropped=12 ignored=140
+KEY 0x74 't'
+KEY 0x69 'i'
+KEY 0x63 'c'
+KEY 0x6b 'k'
+KEY 0x73 's'
+KEY 0x0a ENTER
+SHELL len=5 rejected=0 [ticks]
+ticks=959 hz=100 uptime=9.59s (simulated)
+KBD chars=135 scancodes=293 dropped=12 ignored=146
+KEY 0x76 'v'
+KEY 0x65 'e'
+KEY 0x72 'r'
+KEY 0x73 's'
+KEY 0x69 'i'
+KEY 0x6f 'o'
+KEY 0x6e 'n'
+KEY 0x0a ENTER
+SHELL len=7 rejected=0 [version]
+RangerOS 0.1.0-mvp (i386, multiboot1)
+MVP: VGA+serial, GDT/IDT, exceptions, PIC/PIT 100 Hz, PS/2 keyboard, shell
+KBD chars=143 scancodes=309 dropped=12 ignored=154
+TICKS 1000 irq0=1000 eoi0=1000 irq1=311 eoi1=311 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=310 kbd_empty=1 dropped=12

@@ -71,7 +71,9 @@ case_run neg-irqret-sabotage 0 $LOGDIR/neg-irqret-sabotage.serial.log \
          --expect '^IRQRET_FAIL code=4 \(esi\) ' \
          --fail '^IRQRET_OK' --fail 'PANIC' --fail '^EXCEPTION ' --fail '^error: '
 
-# PS/2 keyboard through QEMU's monitor sendkey (never COM1 input):
+# PS/2 keyboard through QEMU's monitor sendkey (never COM1 input).
+# Since M3 the main loop feeds the shell, so VGA rows carry the "> "
+# prompt and each line is also run as a (here unknown) command:
 # 22 keys = "Hi RangerOS 123!x" + Backspace + Enter, then "ok" + Enter.
 # Shifted keys give 4 scan codes (Shift make, key make, key break, Shift
 # break), others 2: 5*4 + 17*2 = 54 scan codes, 22 bytes, 32 ignored.
@@ -91,7 +93,7 @@ case_run kbd 0 $LOGDIR/m2-kbd.kbd.log \
          --line 'Hi RangerOS 123!' --line 'ok'
 case_run kbd-vga 0 $LOGDIR/m2-kbd.vga.log \
     $VGA --dump $LOGDIR/m2-kbd.vga.bin --text-out $LOGDIR/m2-kbd.vga.txt \
-         --expect '^BOOT_OK$' --expect '^Hi RangerOS 123!$' --expect '^ok$' \
+         --expect '^BOOT_OK$' --expect '^> Hi RangerOS 123!$' --expect '^> ok$' \
          --ppm $LOGDIR/m2-kbd.ppm --png-out $LOGDIR/m2-kbd.png
 case_run kbd-irq 0 $LOGDIR/m2-kbd.irq.log \
     $IRQ --log $LOGDIR/m2-kbd.serial.log --min-ticks 100 --min-reports 1

@@ -1,7 +1,7 @@
 # RangerOS
 
-32 位 x86 教学内核（ring 0 内核线程，GRUB Multiboot 1）。当前阶段：**M2 — 定时器与键盘**（PIC remap、PIT 100 Hz、PS/2 键盘、128 字节输入队列；之前：VGA/串口、GDT、IDT 与异常诊断）。
-设计约束见 [SPEC.md](SPEC.md)，里程碑见 [MILESTONES.md](MILESTONES.md)，证据见 [docs/evidence/M0.md](docs/evidence/M0.md)、[docs/evidence/M1.md](docs/evidence/M1.md)、[docs/evidence/M2.md](docs/evidence/M2.md)；栈布局见 [docs/context.md](docs/context.md)，中断与输入设计见 [docs/interrupts.md](docs/interrupts.md)。
+32 位 x86 教学内核（ring 0 内核线程，GRUB Multiboot 1）。当前版本：**v0.1-mvp（M3 — Shell 与 MVP 冻结）**：PS/2 键盘上的交互 shell（help、version、ticks、clear、demo），以及之前的 PIC/PIT/键盘队列、VGA/串口、GDT/IDT 与异常诊断。
+设计约束见 [SPEC.md](SPEC.md)，里程碑见 [MILESTONES.md](MILESTONES.md)，证据见 [docs/evidence/M0.md](docs/evidence/M0.md)、[docs/evidence/M1.md](docs/evidence/M1.md)、[docs/evidence/M2.md](docs/evidence/M2.md)、[docs/evidence/M3.md](docs/evidence/M3.md)；shell 设计见 [docs/shell.md](docs/shell.md)，报告提纲见 [docs/report-outline.md](docs/report-outline.md)；栈布局见 [docs/context.md](docs/context.md)，中断与输入设计见 [docs/interrupts.md](docs/interrupts.md)。
 
 ## 环境
 
@@ -48,7 +48,7 @@ make run
 ```
 
 QEMU 以 `-nographic` 运行（TCG、单 CPU、128 MiB、`-no-reboot`），GRUB 与内核输出都在 COM1 串口，也就是当前终端。
-看到 `BOOT_OK` 后内核开中断进入主循环：串口每秒输出一行 `TICKS …` 状态，键盘输入回显在 VGA 上，串口每个字节输出一行 `KEY …`。`-nographic` 下看不到 VGA 画面，只有串口输出。在 `-nographic` 终端里打字走的是串口，**不会**到达 PS/2 键盘；要测试键盘，请用 `make run-vga`。
+看到 `BOOT_OK` 后内核开中断，启动 shell（`RangerOS shell: type help`，提示符 `> ` 只显示在 VGA 上）。串口每秒输出一行 `TICKS …` 状态，并对每个输入字节和每次提交输出诊断行（`KEY`、`SHELL`、`KBD`）。`-nographic` 下看不到 VGA 画面，只有串口输出。在 `-nographic` 终端里打字走的是串口，**不会**到达 PS/2 键盘；要测试键盘，请用 `make run-vga`。
 
 **退出 QEMU：按 `Ctrl-A`，松开，再按 `X`。**（`Ctrl-A H` 列出其他串口控制键。）
 
@@ -60,23 +60,38 @@ ssh -t rangeros-vm 'cd ~/projects/RangerOS && make run-vga'
 
 `-display curses` 在终端里绘制 VGA 文本屏幕，串口输出写入 `build/run-vga.serial.log`。退出：按 `Alt-2` 进入 QEMU monitor，输入 `quit` 并回车（2026-11-11 已人工验证）。这里 **Ctrl-A X 无效**，它只适用于 `make run`。
 
+## Shell
+
+在 VGA 控制台上使用（`make run-vga`；或在 QEMU 图形窗口中）。输入只来自 PS/2 键盘。
+
+| 命令 | 作用 |
+|---|---|
+| `help` | 列出命令 |
+| `version` | 版本与 MVP 功能 |
+| `ticks` | 开机以来的 PIT tick（100 Hz，模拟时间） |
+| `clear` | 清空 VGA |
+| `demo` | 5 步、每步 20 tick 的有限演示 |
+
+一行最多 127 个字符；超出时整行丢弃，并提示 `shell: line too long`。支持 Backspace，不支持参数、历史和光标移动（见 docs/shell.md）。
+
 ## 测试
 
 ```bash
 make test
 ```
 
-依次运行 M0、M1 回归和 M2（`make test-m0`、`make test-m1`、`make test-m2`）；所有用例都得到预期结果才退出 0。M2 通过 QEMU monitor 的 `sendkey` 向 PS/2 键盘注入按键。
+依次运行 M0–M3（`make test-m0` … `make test-m3`，共约 4 分钟，其中包括 2 分钟的稳定性运行）；所有用例都得到预期结果才退出 0。M2/M3 通过 QEMU monitor 的 `sendkey` 向 PS/2 键盘注入按键（M3 的按键脚本在 `tests/m3/`）。
 M1 还会构建宿主格式化单元测试（`make host-test`）和 `build/test/selftest-{ud,gp,vga}` 测试内核，并通过 QEMU monitor 采集 VGA 文本缓冲区和截图。
-日志写到 `build/test-logs/`，摘要在 `summary-m0.txt`、`summary-m1.txt`、`summary-m2.txt`。用例说明见 docs/evidence/M0.md、M1.md、M2.md。
+日志写到 `build/test-logs/`，摘要在 `summary-m0.txt` … `summary-m3.txt`。用例说明见 docs/evidence/M0.md … M3.md。
 
 ## 目录
 
 ```
 arch/i386/   boot.asm、linker.ld、io.h、cpu.h、irqflags.h、gdt.c/gdt_load.asm、idt.c、isr.asm、trap.c、trapframe.h
 drivers/     serial.c（COM1）、vga.c（80x25 文本模式）、pic.c、pit.c、keyboard.c（i8042/PS/2）
-kernel/      kmain.c（初始化与主循环）、console.c（kprintf）、panic.c、irq.c（IRQ 分发与统计）
-lib/         format.c、input_queue.c、kbd_decode.c（纯逻辑，均有宿主单测）、string.c
+kernel/      kmain.c（初始化与主循环）、console.c（kprintf）、panic.c、irq.c（IRQ 分发与统计）、wait.c（sti;hlt 等待）
+lib/         format.c、input_queue.c、kbd_decode.c、line_edit.c（纯逻辑，均有宿主单测）、string.c
+shell/       shell.c（命令表与执行）
 include/     rangeros/*.h
 boot/grub/   grub.cfg
 tests/       scripts/（ELF、VGA、异常检查器、QEMU 运行器、M0/M1 套件）、kernel/（测试专用内核代码）、

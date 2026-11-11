@@ -1,0 +1,20 @@
+PASS commands: 7 submitted lines match
+PASS blocks-closed: every SHELL block ends with a KBD line
+PASS len-field: len matches text and never exceeds 127
+PASS out[0]: '^commands:$' in ['commands:', 'help     list commands', 'version  kernel version and MVP feature set', 'ticks    PIT ticks since boot (100 Hz, simulated time)']
+PASS out[0]: '^help +list commands$' in ['commands:', 'help     list commands', 'version  kernel version and MVP feature set', 'ticks    PIT ticks since boot (100 Hz, simulated time)']
+PASS out[0]: '^version +' in ['commands:', 'help     list commands', 'version  kernel version and MVP feature set', 'ticks    PIT ticks since boot (100 Hz, simulated time)']
+PASS out[0]: '^ticks +' in ['commands:', 'help     list commands', 'version  kernel version and MVP feature set', 'ticks    PIT ticks since boot (100 Hz, simulated time)']
+PASS out[0]: '^clear +' in ['commands:', 'help     list commands', 'version  kernel version and MVP feature set', 'ticks    PIT ticks since boot (100 Hz, simulated time)']
+PASS out[0]: '^demo +' in ['commands:', 'help     list commands', 'version  kernel version and MVP feature set', 'ticks    PIT ticks since boot (100 Hz, simulated time)']
+PASS out[1]: '^RangerOS 0\\.1\\.0-mvp \\(i386, multiboot1\\)$' in ['RangerOS 0.1.0-mvp (i386, multiboot1)', 'MVP: VGA+serial, GDT/IDT, exceptions, PIC/PIT 100 Hz, PS/2 keyboard, shell']
+PASS out[1]: '^MVP: ' in ['RangerOS 0.1.0-mvp (i386, multiboot1)', 'MVP: VGA+serial, GDT/IDT, exceptions, PIC/PIT 100 Hz, PS/2 keyboard, shell']
+PASS out[2]: '^ticks=[0-9]+ hz=100 uptime=[0-9]+\\.[0-9]{2}s \\(simulated\\)$' in ['ticks=254 hz=100 uptime=2.54s (simulated)']
+PASS out[3]: '^demo step 5/5 tick=' in ['demo: 5 steps of 20 ticks', 'demo step 1/5 tick=315 scancodes=52 queued=2', 'demo step 2/5 tick=335 scancodes=56 queued=4', 'demo step 3/5 tick=355 scancodes=60 queued=6']
+PASS out[3]: '^demo done after (9[0-9]|1[0-9][0-9]) ticks$' in ['demo: 5 steps of 20 ticks', 'demo step 1/5 tick=315 scancodes=52 queued=2', 'demo step 2/5 tick=335 scancodes=56 queued=4', 'demo step 3/5 tick=355 scancodes=60 queued=6']
+PASS out[4]: '^ticks=' in ['ticks=395 hz=100 uptime=3.95s (simulated)']
+PASS out[5]: '^CLEAR vga$' in ['CLEAR vga']
+PASS out[6]: '^MVP: ' in ['RangerOS 0.1.0-mvp (i386, multiboot1)', 'MVP: VGA+serial, GDT/IDT, exceptions, PIC/PIT 100 Hz, PS/2 keyboard, shell']
+PASS ticks-increase: ticks outputs [254, 395]
+PASS dropped: KBD dropped per block [0, 0, 0, 0, 0, 0, 0] (want 0)
+SHELL_CHECK PASS (0 failed)
