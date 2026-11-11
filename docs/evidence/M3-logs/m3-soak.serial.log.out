@@ -1,0 +1,1 @@
+RESULT=PASS code=0 elapsed=122.5s qemu_rc=running(killed) log=build/test-logs/m3-soak.serial.log detail=2 markers, alive after 1.0s grace, script: 54 keys, 11 expects, captured vga+screen

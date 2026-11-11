@@ -1,0 +1,509 @@
+[H[J[1;1HRangerOS 0.1.0-mvp (i386, multiboot1)
+GDT_OK cs=0x0008 ds=0x0010 ss=0x0010
+IDT_OK vectors=256
+PIT_OK hz=100 divisor=11932
+KBD_OK set=1 translate=1 config=0x61 queue=128
+PIC_OK vectors=0x20/0x28 mask=0xfc/0xff
+IRQ_ON
+BOOT_OK
+RangerOS shell: type help
+TICKS 100 irq0=100 eoi0=100 irq1=1 eoi1=1 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=0 kbd_empty=1 dropped=0
+KEY 0x0a ENTER
+SHELL len=0 rejected=0 []
+KBD chars=1 scancodes=1 dropped=0 ignored=0
+KEY 0x66 'f'
+KEY 0x6f 'o'
+KEY 0x6f 'o'
+KEY 0x0a ENTER
+SHELL len=3 rejected=0 [foo]
+unknown command: foo (type help)
+KBD chars=5 scancodes=9 dropped=0 ignored=4
+KEY 0x08 BACKSPACE
+KEY 0x08 BACKSPACE
+KEY 0x76 'v'
+KEY 0x65 'e'
+KEY 0x72 'r'
+KEY 0x73 's'
+KEY 0x69 'i'
+KEY 0x6f 'o'
+KEY 0x6e 'n'
+KEY 0x0a ENTER
+SHELL len=7 rejected=0 [version]
+RangerOS 0.1.0-mvp (i386, multiboot1)
+MVP: VGA+serial, GDT/IDT, exceptions, PIC/PIT 100 Hz, PS/2 keyboard, shell
+KBD chars=15 scancodes=29 dropped=0 ignored=14
+KEY 0x74 't'
+KEY 0x69 'i'
+KEY 0x63 'c'
+TICKS 200 irq0=200 eoi0=200 irq1=37 eoi1=37 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=36 kbd_empty=1 dropped=0
+KEY 0x78 'x'
+KEY 0x08 BACKSPACE
+KEY 0x6b 'k'
+KEY 0x73 's'
+KEY 0x0a ENTER
+SHELL len=5 rejected=0 [ticks]
+ticks=221 hz=100 uptime=2.21s (simulated)
+KBD chars=23 scancodes=45 dropped=0 ignored=22
+KEY 0x74 't'
+KEY 0x69 'i'
+KEY 0x63 'c'
+KEY 0x6b 'k'
+KEY 0x73 's'
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+TICKS 300 irq0=300 eoi0=300 irq1=77 eoi1=77 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=76 kbd_empty=1 dropped=0
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+TICKS 400 irq0=400 eoi0=400 irq1=115 eoi1=115 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=114 kbd_empty=1 dropped=0
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+TICKS 500 irq0=500 eoi0=500 irq1=155 eoi1=155 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=154 kbd_empty=1 dropped=0
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+TICKS 600 irq0=600 eoi0=600 irq1=193 eoi1=193 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=192 kbd_empty=1 dropped=0
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+TICKS 700 irq0=700 eoi0=700 irq1=233 eoi1=233 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=232 kbd_empty=1 dropped=0
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+TICKS 800 irq0=800 eoi0=800 irq1=271 eoi1=271 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=270 kbd_empty=1 dropped=0
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x0a ENTER
+SHELL len=127 rejected=0 [ticks                                                                                                                          ]
+ticks=877 hz=100 uptime=8.77s (simulated)
+KBD chars=151 scancodes=301 dropped=0 ignored=150
+KEY 0x74 't'
+KEY 0x69 'i'
+KEY 0x63 'c'
+KEY 0x6b 'k'
+TICKS 900 irq0=900 eoi0=900 irq1=310 eoi1=310 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=309 kbd_empty=1 dropped=0
+KEY 0x73 's'
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+TICKS 1000 irq0=1000 eoi0=1000 irq1=349 eoi1=349 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=348 kbd_empty=1 dropped=0
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+TICKS 1100 irq0=1100 eoi0=1100 irq1=388 eoi1=388 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=387 kbd_empty=1 dropped=0
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+TICKS 1200 irq0=1200 eoi0=1200 irq1=427 eoi1=427 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=426 kbd_empty=1 dropped=0
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+TICKS 1300 irq0=1300 eoi0=1300 irq1=466 eoi1=466 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=465 kbd_empty=1 dropped=0
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+TICKS 1400 irq0=1400 eoi0=1400 irq1=505 eoi1=505 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=504 kbd_empty=1 dropped=0
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+TICKS 1500 irq0=1500 eoi0=1500 irq1=544 eoi1=544 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=543 kbd_empty=1 dropped=0
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x20 SPACE
+KEY 0x0a ENTER
+SHELL len=127 rejected=1 [ticks                                                                                                                          ]
+shell: line too long (max 127 chars), 1 rejected; discarded
+KBD chars=280 scancodes=559 dropped=0 ignored=279
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+TICKS 1600 irq0=1600 eoi0=1600 irq1=581 eoi1=581 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=580 kbd_empty=1 dropped=0
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+TICKS 1700 irq0=1700 eoi0=1700 irq1=620 eoi1=620 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=619 kbd_empty=1 dropped=0
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+TICKS 1800 irq0=1800 eoi0=1800 irq1=659 eoi1=659 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=658 kbd_empty=1 dropped=0
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+TICKS 1900 irq0=1900 eoi0=1900 irq1=698 eoi1=698 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=697 kbd_empty=1 dropped=0
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+TICKS 2000 irq0=2000 eoi0=2000 irq1=737 eoi1=737 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=736 kbd_empty=1 dropped=0
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+TICKS 2100 irq0=2100 eoi0=2100 irq1=775 eoi1=775 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=774 kbd_empty=1 dropped=0
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+TICKS 2200 irq0=2200 eoi0=2200 irq1=814 eoi1=814 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=813 kbd_empty=1 dropped=0
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+TICKS 2300 irq0=2300 eoi0=2300 irq1=853 eoi1=853 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=852 kbd_empty=1 dropped=0
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x78 'x'
+KEY 0x0a ENTER
+SHELL len=127 rejected=23 [xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]
+shell: line too long (max 127 chars), 23 rejected; discarded
+KBD chars=431 scancodes=861 dropped=0 ignored=430
+KEY 0x76 'v'
+KEY 0x65 'e'
+KEY 0x72 'r'
+KEY 0x73 's'
+KEY 0x69 'i'
+KEY 0x6f 'o'
+KEY 0x6e 'n'
+KEY 0x0a ENTER
+SHELL len=7 rejected=0 [version]
+RangerOS 0.1.0-mvp (i386, multiboot1)
+MVP: VGA+serial, GDT/IDT, exceptions, PIC/PIT 100 Hz, PS/2 keyboard, shell
+KBD chars=439 scancodes=877 dropped=0 ignored=438
+KEY 0x68 'h'
+KEY 0x65 'e'
+KEY 0x6c 'l'
+KEY 0x70 'p'
+KEY 0x20 SPACE
+KEY 0x6d 'm'
+KEY 0x65 'e'
+TICKS 2400 irq0=2400 eoi0=2400 irq1=892 eoi1=892 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=891 kbd_empty=1 dropped=0
+KEY 0x0a ENTER
+SHELL len=7 rejected=0 [help me]
+shell: help takes no arguments
+KBD chars=447 scancodes=893 dropped=0 ignored=446
+TICKS 2500 irq0=2500 eoi0=2500 irq1=895 eoi1=895 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=894 kbd_empty=1 dropped=0

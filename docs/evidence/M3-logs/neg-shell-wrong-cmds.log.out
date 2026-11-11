@@ -1,0 +1,4 @@
+FAIL commands: 7 submitted lines got ['help', 'version', 'ticks', 'demo', 'ticks', 'clear', 'version'], want ['help', 'version']
+PASS blocks-closed: every SHELL block ends with a KBD line
+PASS len-field: len matches text and never exceeds 127
+SHELL_CHECK FAIL (1 failed)

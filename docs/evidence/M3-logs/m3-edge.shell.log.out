@@ -1,0 +1,14 @@
+PASS commands: 9 submitted lines match
+PASS blocks-closed: every SHELL block ends with a KBD line
+PASS len-field: len matches text and never exceeds 127
+PASS out[1]: '^unknown command: foo \\(type help\\)$' in ['unknown command: foo (type help)']
+PASS out[2]: '^MVP: ' in ['RangerOS 0.1.0-mvp (i386, multiboot1)', 'MVP: VGA+serial, GDT/IDT, exceptions, PIC/PIT 100 Hz, PS/2 keyboard, shell']
+PASS out[3]: '^ticks=' in ['ticks=221 hz=100 uptime=2.21s (simulated)']
+PASS out[4]: '^ticks=' in ['ticks=877 hz=100 uptime=8.77s (simulated)']
+PASS out[5]: '^shell: line too long \\(max 127 chars\\), 1 rejected; discarded$' in ['shell: line too long (max 127 chars), 1 rejected; discarded']
+PASS out[6]: '^shell: line too long \\(max 127 chars\\), 23 rejected; discarded$' in ['shell: line too long (max 127 chars), 23 rejected; discarded']
+PASS out[7]: '^MVP: ' in ['RangerOS 0.1.0-mvp (i386, multiboot1)', 'MVP: VGA+serial, GDT/IDT, exceptions, PIC/PIT 100 Hz, PS/2 keyboard, shell']
+PASS out[8]: '^shell: help takes no arguments$' in ['shell: help takes no arguments']
+PASS no-out[0]: output []
+PASS dropped: KBD dropped per block [0, 0, 0, 0, 0, 0, 0, 0, 0] (want 0)
+SHELL_CHECK PASS (0 failed)

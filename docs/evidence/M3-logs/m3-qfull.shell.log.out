@@ -1,0 +1,9 @@
+PASS commands: 3 submitted lines match
+PASS blocks-closed: every SHELL block ends with a KBD line
+PASS len-field: len matches text and never exceeds 127
+PASS out[0]: '^shell: line too long \\(max 127 chars\\), 1 rejected; discarded$' in ['shell: line too long (max 127 chars), 1 rejected; discarded']
+PASS out[1]: '^ticks=' in ['ticks=959 hz=100 uptime=9.59s (simulated)']
+PASS out[2]: '^MVP: ' in ['RangerOS 0.1.0-mvp (i386, multiboot1)', 'MVP: VGA+serial, GDT/IDT, exceptions, PIC/PIT 100 Hz, PS/2 keyboard, shell']
+PASS dropped: KBD dropped per block [12, 12, 12] (want 12)
+PASS keys-before-first: 128 bytes before first SHELL line
+SHELL_CHECK PASS (0 failed)

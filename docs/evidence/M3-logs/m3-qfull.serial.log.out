@@ -1,0 +1,1 @@
+RESULT=PASS code=0 elapsed=11.3s qemu_rc=running(killed) log=build/test-logs/m3-qfull.serial.log detail=2 markers, alive after 1.0s grace, script: 155 keys, 7 expects, captured vga+screen

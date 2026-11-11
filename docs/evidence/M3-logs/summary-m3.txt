@@ -1,0 +1,38 @@
+== M3 tests 2026-11-11T13:06:22-08:00
+PASS host-line-edit           expected_rc=0 got_rc=0 log=build/test-logs/host-line-edit.log
+       HOST_LINE_EDIT PASS (163 checks, 0 failed)
+PASS shell-commands-run       expected_rc=0 got_rc=0 log=build/test-logs/m3-cmds.serial.log
+       RESULT=PASS code=0 elapsed=6.5s qemu_rc=running(killed) log=build/test-logs/m3-cmds.serial.log detail=2 markers, alive after 1.0s grace, script: 44 keys, 11 expects, captured vga+screen
+PASS shell-commands           expected_rc=0 got_rc=0 log=build/test-logs/m3-cmds.shell.log
+       SHELL_CHECK PASS (0 failed)
+PASS shell-commands-vga       expected_rc=0 got_rc=0 log=build/test-logs/m3-cmds.vga.log
+       VGA_CHECK PASS (0 failed)
+PASS shell-edge-run           expected_rc=0 got_rc=0 log=build/test-logs/m3-edge.serial.log
+       RESULT=PASS code=0 elapsed=25.4s qemu_rc=running(killed) log=build/test-logs/m3-edge.serial.log detail=2 markers, alive after 1.0s grace, script: 447 keys, 15 expects, captured vga+screen
+PASS shell-edge               expected_rc=0 got_rc=0 log=build/test-logs/m3-edge.shell.log
+       SHELL_CHECK PASS (0 failed)
+PASS shell-edge-vga           expected_rc=0 got_rc=0 log=build/test-logs/m3-edge.vga.log
+       VGA_CHECK PASS (0 failed)
+PASS qfull-run                expected_rc=0 got_rc=0 log=build/test-logs/m3-qfull.serial.log
+       RESULT=PASS code=0 elapsed=11.3s qemu_rc=running(killed) log=build/test-logs/m3-qfull.serial.log detail=2 markers, alive after 1.0s grace, script: 155 keys, 7 expects, captured vga+screen
+PASS qfull                    expected_rc=0 got_rc=0 log=build/test-logs/m3-qfull.shell.log
+       SHELL_CHECK PASS (0 failed)
+PASS qfull-vga                expected_rc=0 got_rc=0 log=build/test-logs/m3-qfull.vga.log
+       VGA_CHECK PASS (0 failed)
+PASS soak-run                 expected_rc=0 got_rc=0 log=build/test-logs/m3-soak.serial.log
+       RESULT=PASS code=0 elapsed=122.5s qemu_rc=running(killed) log=build/test-logs/m3-soak.serial.log detail=2 markers, alive after 1.0s grace, script: 54 keys, 11 expects, captured vga+screen
+PASS soak-irq                 expected_rc=0 got_rc=0 log=build/test-logs/m3-soak.irq.log
+       IRQ_CHECK PASS (0 failed)
+PASS soak-shell               expected_rc=0 got_rc=0 log=build/test-logs/m3-soak.shell.log
+       SHELL_CHECK PASS (0 failed)
+PASS soak-vga                 expected_rc=0 got_rc=0 log=build/test-logs/m3-soak.vga.log
+       VGA_CHECK PASS (0 failed)
+PASS neg-shell-wrong-cmds     expected_rc=1 got_rc=1 log=build/test-logs/neg-shell-wrong-cmds.log
+       SHELL_CHECK FAIL (1 failed)
+PASS neg-shell-wrong-out      expected_rc=1 got_rc=1 log=build/test-logs/neg-shell-wrong-out.log
+       SHELL_CHECK FAIL (1 failed)
+PASS neg-shell-wrong-drop     expected_rc=1 got_rc=1 log=build/test-logs/neg-shell-wrong-drop.log
+       SHELL_CHECK FAIL (1 failed)
+PASS neg-script-timeout       expected_rc=1 got_rc=1 log=build/test-logs/neg-script-timeout.serial.log
+       RESULT=TIMEOUT code=1 elapsed=6.9s qemu_rc=running(killed) log=build/test-logs/neg-script-timeout.serial.log detail=script expect 1/1 within 5s: '^MVP:'
+M3_TEST PASS

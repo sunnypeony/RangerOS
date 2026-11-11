@@ -1,0 +1,224 @@
+[H[J[1;1HRangerOS 0.1.0-mvp (i386, multiboot1)
+GDT_OK cs=0x0008 ds=0x0010 ss=0x0010
+IDT_OK vectors=256
+PIT_OK hz=100 divisor=11932
+KBD_OK set=1 translate=1 config=0x61 queue=128
+PIC_OK vectors=0x20/0x28 mask=0xfc/0xff
+IRQ_ON
+BOOT_OK
+RangerOS shell: type help
+TICKS 100 irq0=100 eoi0=100 irq1=1 eoi1=1 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=0 kbd_empty=1 dropped=0
+KEY 0x68 'h'
+KEY 0x65 'e'
+KEY 0x6c 'l'
+KEY 0x70 'p'
+KEY 0x0a ENTER
+SHELL len=4 rejected=0 [help]
+commands:
+  help     list commands
+  version  kernel version and MVP feature set
+  ticks    PIT ticks since boot (100 Hz, simulated time)
+  clear    clear the VGA screen
+  demo     show 5 tick steps of 20 ticks each (about 1 s)
+KBD chars=5 scancodes=9 dropped=0 ignored=4
+TICKS 200 irq0=200 eoi0=200 irq1=11 eoi1=11 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=10 kbd_empty=1 dropped=0
+TICKS 300 irq0=300 eoi0=300 irq1=11 eoi1=11 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=10 kbd_empty=1 dropped=0
+TICKS 400 irq0=400 eoi0=400 irq1=11 eoi1=11 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=10 kbd_empty=1 dropped=0
+TICKS 500 irq0=500 eoi0=500 irq1=11 eoi1=11 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=10 kbd_empty=1 dropped=0
+TICKS 600 irq0=600 eoi0=600 irq1=11 eoi1=11 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=10 kbd_empty=1 dropped=0
+TICKS 700 irq0=700 eoi0=700 irq1=11 eoi1=11 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=10 kbd_empty=1 dropped=0
+TICKS 800 irq0=800 eoi0=800 irq1=11 eoi1=11 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=10 kbd_empty=1 dropped=0
+TICKS 900 irq0=900 eoi0=900 irq1=11 eoi1=11 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=10 kbd_empty=1 dropped=0
+TICKS 1000 irq0=1000 eoi0=1000 irq1=11 eoi1=11 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=10 kbd_empty=1 dropped=0
+TICKS 1100 irq0=1100 eoi0=1100 irq1=11 eoi1=11 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=10 kbd_empty=1 dropped=0
+TICKS 1200 irq0=1200 eoi0=1200 irq1=11 eoi1=11 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=10 kbd_empty=1 dropped=0
+TICKS 1300 irq0=1300 eoi0=1300 irq1=11 eoi1=11 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=10 kbd_empty=1 dropped=0
+TICKS 1400 irq0=1400 eoi0=1400 irq1=11 eoi1=11 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=10 kbd_empty=1 dropped=0
+TICKS 1500 irq0=1500 eoi0=1500 irq1=11 eoi1=11 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=10 kbd_empty=1 dropped=0
+TICKS 1600 irq0=1600 eoi0=1600 irq1=11 eoi1=11 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=10 kbd_empty=1 dropped=0
+TICKS 1700 irq0=1700 eoi0=1700 irq1=11 eoi1=11 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=10 kbd_empty=1 dropped=0
+TICKS 1800 irq0=1800 eoi0=1800 irq1=11 eoi1=11 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=10 kbd_empty=1 dropped=0
+TICKS 1900 irq0=1900 eoi0=1900 irq1=11 eoi1=11 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=10 kbd_empty=1 dropped=0
+TICKS 2000 irq0=2000 eoi0=2000 irq1=11 eoi1=11 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=10 kbd_empty=1 dropped=0
+TICKS 2100 irq0=2100 eoi0=2100 irq1=11 eoi1=11 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=10 kbd_empty=1 dropped=0
+KEY 0x74 't'
+KEY 0x69 'i'
+KEY 0x63 'c'
+KEY 0x6b 'k'
+KEY 0x73 's'
+KEY 0x0a ENTER
+SHELL len=5 rejected=0 [ticks]
+ticks=2167 hz=100 uptime=21.67s (simulated)
+KBD chars=11 scancodes=21 dropped=0 ignored=10
+KEY 0x64 'd'
+KEY 0x65 'e'
+KEY 0x6d 'm'
+KEY 0x6f 'o'
+KEY 0x0a ENTER
+SHELL len=4 rejected=0 [demo]
+demo: 5 steps of 20 ticks
+demo step 1/5 tick=2218 scancodes=32 queued=0
+demo step 2/5 tick=2238 scancodes=32 queued=0
+demo step 3/5 tick=2258 scancodes=32 queued=0
+demo step 4/5 tick=2278 scancodes=32 queued=0
+demo step 5/5 tick=2298 scancodes=32 queued=0
+demo done after 100 ticks
+KBD chars=16 scancodes=32 dropped=0 ignored=16
+TICKS 2298 irq0=2298 eoi0=2298 irq1=33 eoi1=33 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=32 kbd_empty=1 dropped=0
+TICKS 2300 irq0=2300 eoi0=2300 irq1=33 eoi1=33 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=32 kbd_empty=1 dropped=0
+TICKS 2400 irq0=2400 eoi0=2400 irq1=33 eoi1=33 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=32 kbd_empty=1 dropped=0
+TICKS 2500 irq0=2500 eoi0=2500 irq1=33 eoi1=33 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=32 kbd_empty=1 dropped=0
+TICKS 2600 irq0=2600 eoi0=2600 irq1=33 eoi1=33 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=32 kbd_empty=1 dropped=0
+TICKS 2700 irq0=2700 eoi0=2700 irq1=33 eoi1=33 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=32 kbd_empty=1 dropped=0
+TICKS 2800 irq0=2800 eoi0=2800 irq1=33 eoi1=33 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=32 kbd_empty=1 dropped=0
+TICKS 2900 irq0=2900 eoi0=2900 irq1=33 eoi1=33 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=32 kbd_empty=1 dropped=0
+TICKS 3000 irq0=3000 eoi0=3000 irq1=33 eoi1=33 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=32 kbd_empty=1 dropped=0
+TICKS 3100 irq0=3100 eoi0=3100 irq1=33 eoi1=33 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=32 kbd_empty=1 dropped=0
+TICKS 3200 irq0=3200 eoi0=3200 irq1=33 eoi1=33 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=32 kbd_empty=1 dropped=0
+TICKS 3300 irq0=3300 eoi0=3300 irq1=33 eoi1=33 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=32 kbd_empty=1 dropped=0
+TICKS 3400 irq0=3400 eoi0=3400 irq1=33 eoi1=33 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=32 kbd_empty=1 dropped=0
+TICKS 3500 irq0=3500 eoi0=3500 irq1=33 eoi1=33 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=32 kbd_empty=1 dropped=0
+TICKS 3600 irq0=3600 eoi0=3600 irq1=33 eoi1=33 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=32 kbd_empty=1 dropped=0
+TICKS 3700 irq0=3700 eoi0=3700 irq1=33 eoi1=33 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=32 kbd_empty=1 dropped=0
+TICKS 3800 irq0=3800 eoi0=3800 irq1=33 eoi1=33 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=32 kbd_empty=1 dropped=0
+TICKS 3900 irq0=3900 eoi0=3900 irq1=33 eoi1=33 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=32 kbd_empty=1 dropped=0
+TICKS 4000 irq0=4000 eoi0=4000 irq1=33 eoi1=33 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=32 kbd_empty=1 dropped=0
+TICKS 4100 irq0=4100 eoi0=4100 irq1=33 eoi1=33 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=32 kbd_empty=1 dropped=0
+TICKS 4200 irq0=4200 eoi0=4200 irq1=33 eoi1=33 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=32 kbd_empty=1 dropped=0
+TICKS 4300 irq0=4300 eoi0=4300 irq1=33 eoi1=33 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=32 kbd_empty=1 dropped=0
+KEY 0x76 'v'
+KEY 0x65 'e'
+KEY 0x72 'r'
+KEY 0x73 's'
+KEY 0x69 'i'
+KEY 0x6f 'o'
+KEY 0x6e 'n'
+KEY 0x0a ENTER
+SHELL len=7 rejected=0 [version]
+RangerOS 0.1.0-mvp (i386, multiboot1)
+MVP: VGA+serial, GDT/IDT, exceptions, PIC/PIT 100 Hz, PS/2 keyboard, shell
+KBD chars=24 scancodes=47 dropped=0 ignored=23
+TICKS 4400 irq0=4400 eoi0=4400 irq1=49 eoi1=49 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=48 kbd_empty=1 dropped=0
+TICKS 4500 irq0=4500 eoi0=4500 irq1=49 eoi1=49 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=48 kbd_empty=1 dropped=0
+TICKS 4600 irq0=4600 eoi0=4600 irq1=49 eoi1=49 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=48 kbd_empty=1 dropped=0
+TICKS 4700 irq0=4700 eoi0=4700 irq1=49 eoi1=49 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=48 kbd_empty=1 dropped=0
+TICKS 4800 irq0=4800 eoi0=4800 irq1=49 eoi1=49 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=48 kbd_empty=1 dropped=0
+TICKS 4900 irq0=4900 eoi0=4900 irq1=49 eoi1=49 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=48 kbd_empty=1 dropped=0
+TICKS 5000 irq0=5000 eoi0=5000 irq1=49 eoi1=49 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=48 kbd_empty=1 dropped=0
+TICKS 5100 irq0=5100 eoi0=5100 irq1=49 eoi1=49 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=48 kbd_empty=1 dropped=0
+TICKS 5200 irq0=5200 eoi0=5200 irq1=49 eoi1=49 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=48 kbd_empty=1 dropped=0
+TICKS 5300 irq0=5300 eoi0=5300 irq1=49 eoi1=49 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=48 kbd_empty=1 dropped=0
+TICKS 5400 irq0=5400 eoi0=5400 irq1=49 eoi1=49 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=48 kbd_empty=1 dropped=0
+TICKS 5500 irq0=5500 eoi0=5500 irq1=49 eoi1=49 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=48 kbd_empty=1 dropped=0
+TICKS 5600 irq0=5600 eoi0=5600 irq1=49 eoi1=49 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=48 kbd_empty=1 dropped=0
+TICKS 5700 irq0=5700 eoi0=5700 irq1=49 eoi1=49 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=48 kbd_empty=1 dropped=0
+TICKS 5800 irq0=5800 eoi0=5800 irq1=49 eoi1=49 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=48 kbd_empty=1 dropped=0
+TICKS 5900 irq0=5900 eoi0=5900 irq1=49 eoi1=49 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=48 kbd_empty=1 dropped=0
+TICKS 6000 irq0=6000 eoi0=6000 irq1=49 eoi1=49 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=48 kbd_empty=1 dropped=0
+TICKS 6100 irq0=6100 eoi0=6100 irq1=49 eoi1=49 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=48 kbd_empty=1 dropped=0
+TICKS 6200 irq0=6200 eoi0=6200 irq1=49 eoi1=49 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=48 kbd_empty=1 dropped=0
+TICKS 6300 irq0=6300 eoi0=6300 irq1=49 eoi1=49 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=48 kbd_empty=1 dropped=0
+KEY 0x66 'f'
+KEY 0x6f 'o'
+KEY 0x6f 'o'
+KEY 0x0a ENTER
+SHELL len=3 rejected=0 [foo]
+unknown command: foo (type help)
+KBD chars=28 scancodes=55 dropped=0 ignored=27
+TICKS 6400 irq0=6400 eoi0=6400 irq1=57 eoi1=57 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=56 kbd_empty=1 dropped=0
+TICKS 6500 irq0=6500 eoi0=6500 irq1=57 eoi1=57 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=56 kbd_empty=1 dropped=0
+TICKS 6600 irq0=6600 eoi0=6600 irq1=57 eoi1=57 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=56 kbd_empty=1 dropped=0
+TICKS 6700 irq0=6700 eoi0=6700 irq1=57 eoi1=57 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=56 kbd_empty=1 dropped=0
+TICKS 6800 irq0=6800 eoi0=6800 irq1=57 eoi1=57 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=56 kbd_empty=1 dropped=0
+TICKS 6900 irq0=6900 eoi0=6900 irq1=57 eoi1=57 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=56 kbd_empty=1 dropped=0
+TICKS 7000 irq0=7000 eoi0=7000 irq1=57 eoi1=57 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=56 kbd_empty=1 dropped=0
+TICKS 7100 irq0=7100 eoi0=7100 irq1=57 eoi1=57 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=56 kbd_empty=1 dropped=0
+TICKS 7200 irq0=7200 eoi0=7200 irq1=57 eoi1=57 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=56 kbd_empty=1 dropped=0
+TICKS 7300 irq0=7300 eoi0=7300 irq1=57 eoi1=57 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=56 kbd_empty=1 dropped=0
+TICKS 7400 irq0=7400 eoi0=7400 irq1=57 eoi1=57 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=56 kbd_empty=1 dropped=0
+TICKS 7500 irq0=7500 eoi0=7500 irq1=57 eoi1=57 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=56 kbd_empty=1 dropped=0
+TICKS 7600 irq0=7600 eoi0=7600 irq1=57 eoi1=57 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=56 kbd_empty=1 dropped=0
+TICKS 7700 irq0=7700 eoi0=7700 irq1=57 eoi1=57 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=56 kbd_empty=1 dropped=0
+TICKS 7800 irq0=7800 eoi0=7800 irq1=57 eoi1=57 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=56 kbd_empty=1 dropped=0
+TICKS 7900 irq0=7900 eoi0=7900 irq1=57 eoi1=57 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=56 kbd_empty=1 dropped=0
+TICKS 8000 irq0=8000 eoi0=8000 irq1=57 eoi1=57 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=56 kbd_empty=1 dropped=0
+TICKS 8100 irq0=8100 eoi0=8100 irq1=57 eoi1=57 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=56 kbd_empty=1 dropped=0
+TICKS 8200 irq0=8200 eoi0=8200 irq1=57 eoi1=57 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=56 kbd_empty=1 dropped=0
+TICKS 8300 irq0=8300 eoi0=8300 irq1=57 eoi1=57 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=56 kbd_empty=1 dropped=0
+KEY 0x74 't'
+KEY 0x69 'i'
+KEY 0x63 'c'
+KEY 0x6b 'k'
+KEY 0x73 's'
+KEY 0x0a ENTER
+SHELL len=5 rejected=0 [ticks]
+ticks=8385 hz=100 uptime=83.85s (simulated)
+KBD chars=34 scancodes=67 dropped=0 ignored=33
+TICKS 8400 irq0=8400 eoi0=8400 irq1=69 eoi1=69 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=68 kbd_empty=1 dropped=0
+TICKS 8500 irq0=8500 eoi0=8500 irq1=69 eoi1=69 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=68 kbd_empty=1 dropped=0
+TICKS 8600 irq0=8600 eoi0=8600 irq1=69 eoi1=69 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=68 kbd_empty=1 dropped=0
+TICKS 8700 irq0=8700 eoi0=8700 irq1=69 eoi1=69 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=68 kbd_empty=1 dropped=0
+TICKS 8800 irq0=8800 eoi0=8800 irq1=69 eoi1=69 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=68 kbd_empty=1 dropped=0
+TICKS 8900 irq0=8900 eoi0=8900 irq1=69 eoi1=69 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=68 kbd_empty=1 dropped=0
+TICKS 9000 irq0=9000 eoi0=9000 irq1=69 eoi1=69 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=68 kbd_empty=1 dropped=0
+TICKS 9100 irq0=9100 eoi0=9100 irq1=69 eoi1=69 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=68 kbd_empty=1 dropped=0
+TICKS 9200 irq0=9200 eoi0=9200 irq1=69 eoi1=69 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=68 kbd_empty=1 dropped=0
+TICKS 9300 irq0=9300 eoi0=9300 irq1=69 eoi1=69 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=68 kbd_empty=1 dropped=0
+TICKS 9400 irq0=9400 eoi0=9400 irq1=69 eoi1=69 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=68 kbd_empty=1 dropped=0
+TICKS 9500 irq0=9500 eoi0=9500 irq1=69 eoi1=69 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=68 kbd_empty=1 dropped=0
+TICKS 9600 irq0=9600 eoi0=9600 irq1=69 eoi1=69 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=68 kbd_empty=1 dropped=0
+TICKS 9700 irq0=9700 eoi0=9700 irq1=69 eoi1=69 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=68 kbd_empty=1 dropped=0
+TICKS 9800 irq0=9800 eoi0=9800 irq1=69 eoi1=69 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=68 kbd_empty=1 dropped=0
+TICKS 9900 irq0=9900 eoi0=9900 irq1=69 eoi1=69 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=68 kbd_empty=1 dropped=0
+TICKS 10000 irq0=10000 eoi0=10000 irq1=69 eoi1=69 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=68 kbd_empty=1 dropped=0
+TICKS 10100 irq0=10100 eoi0=10100 irq1=69 eoi1=69 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=68 kbd_empty=1 dropped=0
+TICKS 10200 irq0=10200 eoi0=10200 irq1=69 eoi1=69 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=68 kbd_empty=1 dropped=0
+TICKS 10300 irq0=10300 eoi0=10300 irq1=69 eoi1=69 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=68 kbd_empty=1 dropped=0
+KEY 0x63 'c'
+KEY 0x6c 'l'
+TICKS 10400 irq0=10400 eoi0=10400 irq1=73 eoi1=73 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=72 kbd_empty=1 dropped=0
+KEY 0x65 'e'
+KEY 0x61 'a'
+KEY 0x72 'r'
+KEY 0x0a ENTER
+SHELL len=5 rejected=0 [clear]
+CLEAR vga
+KBD chars=40 scancodes=79 dropped=0 ignored=39
+TICKS 10500 irq0=10500 eoi0=10500 irq1=81 eoi1=81 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=80 kbd_empty=1 dropped=0
+TICKS 10600 irq0=10600 eoi0=10600 irq1=81 eoi1=81 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=80 kbd_empty=1 dropped=0
+TICKS 10700 irq0=10700 eoi0=10700 irq1=81 eoi1=81 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=80 kbd_empty=1 dropped=0
+TICKS 10800 irq0=10800 eoi0=10800 irq1=81 eoi1=81 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=80 kbd_empty=1 dropped=0
+TICKS 10900 irq0=10900 eoi0=10900 irq1=81 eoi1=81 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=80 kbd_empty=1 dropped=0
+TICKS 11000 irq0=11000 eoi0=11000 irq1=81 eoi1=81 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=80 kbd_empty=1 dropped=0
+TICKS 11100 irq0=11100 eoi0=11100 irq1=81 eoi1=81 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=80 kbd_empty=1 dropped=0
+TICKS 11200 irq0=11200 eoi0=11200 irq1=81 eoi1=81 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=80 kbd_empty=1 dropped=0
+TICKS 11300 irq0=11300 eoi0=11300 irq1=81 eoi1=81 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=80 kbd_empty=1 dropped=0
+TICKS 11400 irq0=11400 eoi0=11400 irq1=81 eoi1=81 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=80 kbd_empty=1 dropped=0
+TICKS 11500 irq0=11500 eoi0=11500 irq1=81 eoi1=81 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=80 kbd_empty=1 dropped=0
+TICKS 11600 irq0=11600 eoi0=11600 irq1=81 eoi1=81 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=80 kbd_empty=1 dropped=0
+TICKS 11700 irq0=11700 eoi0=11700 irq1=81 eoi1=81 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=80 kbd_empty=1 dropped=0
+TICKS 11800 irq0=11800 eoi0=11800 irq1=81 eoi1=81 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=80 kbd_empty=1 dropped=0
+TICKS 11900 irq0=11900 eoi0=11900 irq1=81 eoi1=81 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=80 kbd_empty=1 dropped=0
+TICKS 12000 irq0=12000 eoi0=12000 irq1=81 eoi1=81 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=80 kbd_empty=1 dropped=0
+KEY 0x74 't'
+KEY 0x69 'i'
+KEY 0x63 'c'
+KEY 0x6b 'k'
+KEY 0x73 's'
+KEY 0x0a ENTER
+SHELL len=5 rejected=0 [ticks]
+ticks=12036 hz=100 uptime=120.36s (simulated)
+KBD chars=46 scancodes=91 dropped=0 ignored=45
+KEY 0x76 'v'
+KEY 0x65 'e'
+KEY 0x72 'r'
+KEY 0x73 's'
+KEY 0x69 'i'
+KEY 0x6f 'o'
+KEY 0x6e 'n'
+KEY 0x0a ENTER
+SHELL len=7 rejected=0 [version]
+RangerOS 0.1.0-mvp (i386, multiboot1)
+MVP: VGA+serial, GDT/IDT, exceptions, PIC/PIT 100 Hz, PS/2 keyboard, shell
+KBD chars=54 scancodes=107 dropped=0 ignored=53
+TICKS 12100 irq0=12100 eoi0=12100 irq1=109 eoi1=109 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=108 kbd_empty=1 dropped=0

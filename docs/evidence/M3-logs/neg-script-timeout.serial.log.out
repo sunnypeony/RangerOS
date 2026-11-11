@@ -1,0 +1,1 @@
+RESULT=TIMEOUT code=1 elapsed=6.9s qemu_rc=running(killed) log=build/test-logs/neg-script-timeout.serial.log detail=script expect 1/1 within 5s: '^MVP:'

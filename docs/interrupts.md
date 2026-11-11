@@ -100,6 +100,8 @@ CPU：iretd 弹出 EIP/CS/EFLAGS → IF、DF 等恢复为被中断时的值
 
 ## 6. 主循环与 idle
 
+> M3 起，主循环把每个字节交给 shell（`shell_input()`），等待改用 kernel/wait.c 的 `wait_for_input()`，契约相同（见 [shell.md](shell.md) §4）。下面的代码描述的是 M2 时的形态。
+
 ```c
 for (;;) {
     while ((c = keyboard_read()) >= 0) handle_input(c);   // 回显到 VGA，串口每字节一行 KEY

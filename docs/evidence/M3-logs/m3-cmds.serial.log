@@ -1,0 +1,93 @@
+[H[J[1;1HRangerOS 0.1.0-mvp (i386, multiboot1)
+GDT_OK cs=0x0008 ds=0x0010 ss=0x0010
+IDT_OK vectors=256
+PIT_OK hz=100 divisor=11932
+KBD_OK set=1 translate=1 config=0x61 queue=128
+PIC_OK vectors=0x20/0x28 mask=0xfc/0xff
+IRQ_ON
+BOOT_OK
+RangerOS shell: type help
+TICKS 100 irq0=100 eoi0=100 irq1=1 eoi1=1 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=0 kbd_empty=1 dropped=0
+KEY 0x68 'h'
+KEY 0x65 'e'
+KEY 0x6c 'l'
+KEY 0x70 'p'
+KEY 0x0a ENTER
+SHELL len=4 rejected=0 [help]
+commands:
+  help     list commands
+  version  kernel version and MVP feature set
+  ticks    PIT ticks since boot (100 Hz, simulated time)
+  clear    clear the VGA screen
+  demo     show 5 tick steps of 20 ticks each (about 1 s)
+KBD chars=5 scancodes=9 dropped=0 ignored=4
+KEY 0x76 'v'
+KEY 0x65 'e'
+KEY 0x72 'r'
+KEY 0x73 's'
+KEY 0x69 'i'
+KEY 0x6f 'o'
+KEY 0x6e 'n'
+TICKS 200 irq0=200 eoi0=200 irq1=24 eoi1=24 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=23 kbd_empty=1 dropped=0
+KEY 0x0a ENTER
+SHELL len=7 rejected=0 [version]
+RangerOS 0.1.0-mvp (i386, multiboot1)
+MVP: VGA+serial, GDT/IDT, exceptions, PIC/PIT 100 Hz, PS/2 keyboard, shell
+KBD chars=13 scancodes=25 dropped=0 ignored=12
+KEY 0x74 't'
+KEY 0x69 'i'
+KEY 0x63 'c'
+KEY 0x6b 'k'
+KEY 0x73 's'
+KEY 0x0a ENTER
+SHELL len=5 rejected=0 [ticks]
+ticks=254 hz=100 uptime=2.54s (simulated)
+KBD chars=19 scancodes=37 dropped=0 ignored=18
+KEY 0x64 'd'
+KEY 0x65 'e'
+KEY 0x6d 'm'
+KEY 0x6f 'o'
+KEY 0x0a ENTER
+SHELL len=4 rejected=0 [demo]
+demo: 5 steps of 20 ticks
+demo step 1/5 tick=315 scancodes=52 queued=2
+demo step 2/5 tick=335 scancodes=56 queued=4
+demo step 3/5 tick=355 scancodes=60 queued=6
+demo step 4/5 tick=375 scancodes=60 queued=6
+demo step 5/5 tick=395 scancodes=60 queued=6
+demo done after 100 ticks
+KBD chars=30 scancodes=60 dropped=0 ignored=30
+KEY 0x74 't'
+KEY 0x69 'i'
+KEY 0x63 'c'
+KEY 0x6b 'k'
+KEY 0x73 's'
+KEY 0x0a ENTER
+SHELL len=5 rejected=0 [ticks]
+ticks=395 hz=100 uptime=3.95s (simulated)
+KBD chars=30 scancodes=60 dropped=0 ignored=30
+TICKS 395 irq0=395 eoi0=395 irq1=61 eoi1=61 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=60 kbd_empty=1 dropped=0
+KEY 0x63 'c'
+TICKS 400 irq0=400 eoi0=400 irq1=62 eoi1=62 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=61 kbd_empty=1 dropped=0
+KEY 0x6c 'l'
+KEY 0x65 'e'
+KEY 0x61 'a'
+KEY 0x72 'r'
+KEY 0x0a ENTER
+SHELL len=5 rejected=0 [clear]
+CLEAR vga
+KBD chars=36 scancodes=71 dropped=0 ignored=35
+KEY 0x76 'v'
+KEY 0x65 'e'
+KEY 0x72 'r'
+KEY 0x73 's'
+KEY 0x69 'i'
+KEY 0x6f 'o'
+KEY 0x6e 'n'
+TICKS 500 irq0=500 eoi0=500 irq1=87 eoi1=87 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=86 kbd_empty=1 dropped=0
+KEY 0x0a ENTER
+SHELL len=7 rejected=0 [version]
+RangerOS 0.1.0-mvp (i386, multiboot1)
+MVP: VGA+serial, GDT/IDT, exceptions, PIC/PIT 100 Hz, PS/2 keyboard, shell
+KBD chars=44 scancodes=87 dropped=0 ignored=43
+TICKS 600 irq0=600 eoi0=600 irq1=89 eoi1=89 spurious=0 unexpected=0 maxdepth=1 ifin=0 kbd_scancodes=88 kbd_empty=1 dropped=0

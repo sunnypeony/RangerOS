@@ -1,0 +1,7 @@
+PASS commands: 9 submitted lines match
+PASS blocks-closed: every SHELL block ends with a KBD line
+PASS len-field: len matches text and never exceeds 127
+PASS out[7]: '^ticks=1[2-9][0-9]{3} ' in ['ticks=12036 hz=100 uptime=120.36s (simulated)']
+PASS ticks-increase: ticks outputs [2167, 8385, 12036]
+PASS dropped: KBD dropped per block [0, 0, 0, 0, 0, 0, 0, 0, 0] (want 0)
+SHELL_CHECK PASS (0 failed)

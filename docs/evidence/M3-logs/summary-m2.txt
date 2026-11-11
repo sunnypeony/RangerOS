@@ -1,0 +1,36 @@
+== M2 tests 2026-11-11T13:05:54-08:00
+PASS host-input-queue         expected_rc=0 got_rc=0 log=build/test-logs/host-input-queue.log
+       HOST_INPUT_QUEUE PASS (12781 checks, 0 failed)
+PASS host-kbd-decode          expected_rc=0 got_rc=0 log=build/test-logs/host-kbd-decode.log
+       HOST_KBD_DECODE PASS (18 cases, 0 failed)
+PASS kernel-no-test-symbols   expected_rc=0 got_rc=0 log=build/test-logs/kernel-no-test-symbols.log
+       no test symbols in build/kernel.elf
+PASS irq-ticks-run            expected_rc=0 got_rc=0 log=build/test-logs/m2-ticks.serial.log
+       RESULT=PASS code=0 elapsed=6.6s qemu_rc=running(killed) log=build/test-logs/m2-ticks.serial.log detail=11 markers, alive after 1.0s grace
+PASS irq-ticks                expected_rc=0 got_rc=0 log=build/test-logs/m2-ticks.irq.log
+       IRQ_CHECK PASS (0 failed)
+PASS irqret-run               expected_rc=0 got_rc=0 log=build/test-logs/m2-irqret.serial.log
+       RESULT=PASS code=0 elapsed=3.4s qemu_rc=running(killed) log=build/test-logs/m2-irqret.serial.log detail=5 markers, alive after 1.0s grace
+PASS irqret-ticks             expected_rc=0 got_rc=0 log=build/test-logs/m2-irqret.irq.log
+       IRQ_CHECK PASS (0 failed)
+PASS neg-irqret-sabotage      expected_rc=0 got_rc=0 log=build/test-logs/neg-irqret-sabotage.serial.log
+       RESULT=PASS code=0 elapsed=1.4s qemu_rc=running(killed) log=build/test-logs/neg-irqret-sabotage.serial.log detail=1 markers, alive after 1.0s grace
+PASS kbd-run                  expected_rc=0 got_rc=0 log=build/test-logs/m2-kbd.serial.log
+       RESULT=PASS code=0 elapsed=9.4s qemu_rc=running(killed) log=build/test-logs/m2-kbd.serial.log detail=2 markers, alive after 1.0s grace, script: 22 keys, 4 expects, captured vga+screen
+PASS kbd                      expected_rc=0 got_rc=0 log=build/test-logs/m2-kbd.kbd.log
+       KBD_CHECK PASS (0 failed)
+PASS kbd-vga                  expected_rc=0 got_rc=0 log=build/test-logs/m2-kbd.vga.log
+       VGA_CHECK PASS (0 failed)
+PASS kbd-irq                  expected_rc=0 got_rc=0 log=build/test-logs/m2-kbd.irq.log
+       IRQ_CHECK PASS (0 failed)
+PASS neg-kbd-no-injection     expected_rc=1 got_rc=1 log=build/test-logs/neg-kbd-no-injection.serial.log
+       RESULT=TIMEOUT code=1 elapsed=6.1s qemu_rc=running(killed) log=build/test-logs/neg-kbd-no-injection.serial.log detail=1/2 markers within 6s, waiting for '^KEY '
+PASS neg-kbd-wrong-line       expected_rc=1 got_rc=1 log=build/test-logs/neg-kbd-wrong-line.log
+       KBD_CHECK FAIL (1 failed)
+PASS neg-kbd-wrong-stats      expected_rc=1 got_rc=1 log=build/test-logs/neg-kbd-wrong-stats.log
+       KBD_CHECK FAIL (1 failed)
+PASS neg-irq-too-few          expected_rc=1 got_rc=1 log=build/test-logs/neg-irq-too-few.log
+       IRQ_CHECK FAIL (1 failed)
+PASS neg-irq-no-reports       expected_rc=1 got_rc=1 log=build/test-logs/neg-irq-no-reports.log
+       IRQ_CHECK FAIL (1 failed)
+M2_TEST PASS

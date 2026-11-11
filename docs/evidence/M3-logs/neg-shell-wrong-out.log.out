@@ -1,0 +1,5 @@
+PASS commands: 9 submitted lines match
+PASS blocks-closed: every SHELL block ends with a KBD line
+PASS len-field: len matches text and never exceeds 127
+FAIL out[5]: '^ticks=' in ['shell: line too long (max 127 chars), 1 rejected; discarded']
+SHELL_CHECK FAIL (1 failed)
