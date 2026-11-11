@@ -1,0 +1,5 @@
+PASS dump-size: 4000 bytes
+PASS attributes: all cells 0x07; other values: none
+PASS scroll-test-screen: rows differing from simulation: none
+PASS screenshot: 720x400 -> build/test-logs/m1-vga.png
+VGA_CHECK PASS (0 failed)

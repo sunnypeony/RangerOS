@@ -1,7 +1,7 @@
 # RangerOS
 
-32 位 x86 教学内核（ring 0 内核线程，GRUB Multiboot 1）。当前阶段：**M0 — 构建与启动**。
-设计约束见 [SPEC.md](SPEC.md)，里程碑见 [MILESTONES.md](MILESTONES.md)，M0 证据见 [docs/evidence/M0.md](docs/evidence/M0.md)。
+32 位 x86 教学内核（ring 0 内核线程，GRUB Multiboot 1）。当前阶段：**M1 — 输出与异常**（VGA/串口输出、自有 GDT、IDT 与异常诊断；硬件 IRQ 关闭）。
+设计约束见 [SPEC.md](SPEC.md)，里程碑见 [MILESTONES.md](MILESTONES.md)，证据见 [docs/evidence/M0.md](docs/evidence/M0.md)、[docs/evidence/M1.md](docs/evidence/M1.md)，栈布局见 [docs/context.md](docs/context.md)。
 
 ## 环境
 
@@ -48,9 +48,17 @@ make run
 ```
 
 QEMU 以 `-nographic` 运行（TCG、单 CPU、128 MiB、`-no-reboot`），GRUB 与内核输出都在 COM1 串口，也就是当前终端。
-看到 `BOOT_OK` 后内核以 `cli; hlt` 停机。
+看到 `BOOT_OK` 后内核以 `cli; hlt` 停机。`-nographic` 下看不到 VGA 画面，只有串口输出。
 
 **退出 QEMU：按 `Ctrl-A`，松开，再按 `X`。**（`Ctrl-A H` 列出其他串口控制键。）
+
+查看 VGA 文本画面（需要交互式终端）：
+
+```bash
+ssh -t rangeros-vm 'cd ~/projects/RangerOS && make run-vga'
+```
+
+`-display curses` 在终端里绘制 VGA 文本屏幕，串口输出写入 `build/run-vga.serial.log`。退出：按 `Esc` 再按 `2` 进入 QEMU monitor，输入 `quit` 并回车。（此方式尚未人工验证。）
 
 ## 测试
 
@@ -58,18 +66,21 @@ QEMU 以 `-nographic` 运行（TCG、单 CPU、128 MiB、`-no-reboot`），GRUB 
 make test
 ```
 
-先构建内核、ISO 和负向自检镜像，再运行 `tests/scripts/m0_test.sh`；所有用例都得到预期结果才退出 0。
-日志写到 `build/test-logs/`，摘要在 `build/test-logs/summary.txt`。用例说明见 docs/evidence/M0.md。
+依次运行 M0 回归（`make test-m0`）和 M1（`make test-m1`）；所有用例都得到预期结果才退出 0。
+M1 还会构建宿主格式化单元测试（`make host-test`）和 `build/test/selftest-{ud,gp,vga}` 测试内核，并通过 QEMU monitor 采集 VGA 文本缓冲区和截图。
+日志写到 `build/test-logs/`，摘要在 `summary-m0.txt`、`summary-m1.txt`。用例说明见 docs/evidence/M0.md 与 M1.md。
 
 ## 目录
 
 ```
-arch/i386/   boot.asm（Multiboot 头、入口、初始栈）、linker.ld、io.h
-drivers/     serial.c（COM1）
-kernel/      kmain.c
+arch/i386/   boot.asm、linker.ld、io.h、cpu.h、gdt.c/gdt_load.asm、idt.c、isr.asm、trap.c、trapframe.h
+drivers/     serial.c（COM1）、vga.c（80x25 文本模式）
+kernel/      kmain.c、console.c（kprintf）、panic.c
+lib/         format.c（格式化器，也在宿主上测试）、string.c
 include/     rangeros/*.h
 boot/grub/   grub.cfg
-tests/       scripts/（ELF 检查、QEMU 运行器、M0 套件）、grub/（负向自检配置）
+tests/       scripts/（ELF、VGA、异常检查器、QEMU 运行器、M0/M1 套件）、kernel/（测试专用内核代码）、
+             host/（宿主单元测试）、grub/（负向自检配置）
 docs/        context.md（栈布局）、evidence/
 env-check/   M0 之前的人工环境检查（保留）
 tools/       GRUB i386-pc 模块（保留）

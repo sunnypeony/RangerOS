@@ -1,0 +1,1 @@
+RESULT=PASS code=0 elapsed=1.4s qemu_rc=running(killed) log=build/test-logs/m1-ud.serial.log detail=5 markers, alive after 1.0s grace, captured vga+screen

@@ -1,0 +1,4 @@
+[H[J[1;1HRangerOS 0.0.2-m1 (i386, multiboot1)
+GDT_OK cs=0x0008 ds=0x0010 ss=0x0010
+IDT_OK vectors=256
+BOOT_OK

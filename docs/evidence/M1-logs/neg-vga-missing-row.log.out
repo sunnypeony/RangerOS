@@ -1,0 +1,4 @@
+PASS dump-size: 4000 bytes
+PASS attributes: all cells 0x07; other values: none
+FAIL expected-rows: 0/1 matched in order, missing '^NO_SUCH_ROW$'
+VGA_CHECK FAIL (1 failed)

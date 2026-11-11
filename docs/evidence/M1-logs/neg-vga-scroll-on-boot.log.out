@@ -1,0 +1,10 @@
+PASS dump-size: 4000 bytes
+PASS attributes: all cells 0x07; other values: none
+FAIL scroll-test-screen: rows differing from simulation: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+  row 00 got    |RangerOS 0.0.2-m1 (i386, multiboot1)|
+  row 00 expect |row 08 dec=8000 neg=-296 hex=91a0 pad=DEAD0008|
+  row 01 got    |GDT_OK cs=0x0008 ds=0x0010 ss=0x0010|
+  row 01 expect |row 09 dec=9000 neg=-333 hex=a3d4 pad=DEAD0009|
+  row 02 got    |IDT_OK vectors=256|
+  row 02 expect |row 10 dec=10000 neg=-370 hex=b608 pad=DEAD000A|
+VGA_CHECK FAIL (1 failed)

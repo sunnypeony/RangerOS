@@ -1,0 +1,15 @@
+date:          2026-11-10T22:55:24-08:00
+host:          Ubuntu 20.04.6 LTS / 5.4.0-216-generic / aarch64
+clang:         clang version 10.0.0-4ubuntu1 
+ld.lld:        LLD 10.0.0 (compatible with GNU linkers)
+nasm:          NASM version 2.14.02
+readelf:       GNU readelf (GNU Binutils for Ubuntu) 2.34
+nm:            GNU nm (GNU Binutils for Ubuntu) 2.34
+grub-mkrescue: grub-mkrescue (GRUB) 2.04-1ubuntu26.17
+grub-file:     grub-common 2.04-1ubuntu26.17 arm64
+grub i386-pc:  eb71891e5f7eec9f042232ae23910e38392a6f1302170f07575bac07620b70b5 grub-pc-bin_2.04-1ubuntu26.17_amd64.deb
+xorriso:       xorriso 1.5.2
+mtools:        mformat (GNU mtools) 4.0.24
+qemu:          QEMU emulator version 4.2.1 (Debian 1:4.2-3ubuntu6.30)
+make:          GNU Make 4.2.1
+python3:       Python 3.8.10

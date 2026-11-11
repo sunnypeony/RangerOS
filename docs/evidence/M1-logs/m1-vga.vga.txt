@@ -1,0 +1,25 @@
+00|row 08 dec=8000 neg=-296 hex=91a0 pad=DEAD0008                                  |
+01|row 09 dec=9000 neg=-333 hex=a3d4 pad=DEAD0009                                  |
+02|row 10 dec=10000 neg=-370 hex=b608 pad=DEAD000A                                 |
+03|row 11 dec=11000 neg=-407 hex=c83c pad=DEAD000B                                 |
+04|row 12 dec=12000 neg=-444 hex=da70 pad=DEAD000C                                 |
+05|row 13 dec=13000 neg=-481 hex=eca4 pad=DEAD000D                                 |
+06|row 14 dec=14000 neg=-518 hex=fed8 pad=DEAD000E                                 |
+07|row 15 dec=15000 neg=-555 hex=1110c pad=DEAD000F                                |
+08|row 16 dec=16000 neg=-592 hex=12340 pad=DEAD0010                                |
+09|row 17 dec=17000 neg=-629 hex=13574 pad=DEAD0011                                |
+10|row 18 dec=18000 neg=-666 hex=147a8 pad=DEAD0012                                |
+11|row 19 dec=19000 neg=-703 hex=159dc pad=DEAD0013                                |
+12|row 20 dec=20000 neg=-740 hex=16c10 pad=DEAD0014                                |
+13|row 21 dec=21000 neg=-777 hex=17e44 pad=DEAD0015                                |
+14|row 22 dec=22000 neg=-814 hex=19078 pad=DEAD0016                                |
+15|row 23 dec=23000 neg=-851 hex=1a2ac pad=DEAD0017                                |
+16|row 24 dec=24000 neg=-888 hex=1b4e0 pad=DEAD0018                                |
+17|row 25 dec=25000 neg=-925 hex=1c714 pad=DEAD0019                                |
+18|row 26 dec=26000 neg=-962 hex=1d948 pad=DEAD001A                                |
+19|row 27 dec=27000 neg=-999 hex=1eb7c pad=DEAD001B                                |
+20|row 28 dec=28000 neg=-1036 hex=1fdb0 pad=DEAD001C                               |
+21|row 29 dec=29000 neg=-1073 hex=20fe4 pad=DEAD001D                               |
+22|ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZAB|
+23|CDEFGHIJKL                                                                      |
+24|VGA_END                                                                         |
